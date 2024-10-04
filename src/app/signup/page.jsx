@@ -1,7 +1,9 @@
+
+
 const SignUp = () => {
 return (
     <section>
-        
+
     </section>
 )
 }
