@@ -11,7 +11,7 @@ const Header =
           href={
             "/"
           }
-          className="font-semibold text-2xl pl-4"
+          className="font-semibold text-3xl pl-4"
         >
           <span>
             AppleStore

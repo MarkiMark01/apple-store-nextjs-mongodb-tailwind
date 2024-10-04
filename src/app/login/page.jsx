@@ -1,10 +1,12 @@
+import Image from "next/image";
+import Link from "next/link";
 
-
-const Login = () => {
+const Login =
+  () => {
     return (
-        <section>
-    
-        </section>
-    )
-    }
-    export default Login;
+      <section className="min-h-screen w-full">
+        
+      </section>
+    );
+  };
+export default Login;

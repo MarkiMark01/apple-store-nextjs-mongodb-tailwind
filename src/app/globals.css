@@ -2,3 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  height: 100%; 
+  margin: 0; 
+}
+
+*,
+*::before,
+*::after {
+  @apply box-border;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="text"] {
+    @apply rounded-xl border p-2 border-gray-300 
+    bg-gray-100 w-full;
+}
+
+button[type="submit"]{
+  @apply bg-black1 text-white w-full rounded-3xl 
+  p-2 text-xl;
+}
+
