@@ -34,7 +34,7 @@ const Header =
             className="bg-white text-black1 px-1 py-1 rounded
             text-xl font-semibold border border-white"
           >
-            Login
+            Log In
           </Link>
         </nav>
         {/* <nav>
