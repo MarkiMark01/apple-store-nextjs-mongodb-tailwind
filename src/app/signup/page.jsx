@@ -101,8 +101,9 @@ const SignUp = () => {
         </div>
         <button
           type="button"
-          className="flex gap-4 justify-center bg-white 
+          className="flex gap-4 justify-center items-center bg-white 
           text-black w-full rounded-3xl p-2 text-xl border border-gray-300"
+          onClick={() => signIn("google", { callbackUrl: '/' })}
         >
           <Image
             src="/google.png"
