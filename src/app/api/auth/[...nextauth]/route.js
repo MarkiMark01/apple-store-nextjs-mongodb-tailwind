@@ -3,8 +3,8 @@ import NextAuth, {getServerSession} from "next-auth";
 import bcrypt from "bcrypt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import clientPromise from '../../../../libs/mongoConnect';
+// import { MongoDBAdapter } from "@auth/mongodb-adapter";
+// import clientPromise from '../../../../libs/mongoConnect';
 
 import User from "../../../models/User";
 
