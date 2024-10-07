@@ -13,14 +13,23 @@ const SignUp = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setCreatingUser(true);
-    setError(""); // Reset error state
+    setError("");
+
+    if (password.length < 6) {
+      setError(
+        "Password must be at least 6 characters long."
+      );
+      setCreatingUser(false);
+      return;
+    }
+
     try {
       const res = await fetch("/api/register", {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: { "Content-Type": "application/json" },
       });
-      
+
       if (res.ok) {
         setUserCreated(true);
         setEmail("");
@@ -38,13 +47,18 @@ const SignUp = () => {
 
   return (
     <section className="min-h-screen w-full">
-      <h1 className="font-semibold text-4xl text-center pt-16">Sign Up</h1>
+      <h1 className="font-semibold text-4xl text-center pt-16">
+        Sign Up
+      </h1>
       {userCreated && (
         <div className="my-4 text-center">
           User created.
           <br />
           Now you can{" "}
-          <Link className="underline text-orange-500" href={"/login"}>
+          <Link
+            className="underline text-orange-500"
+            href={"/login"}
+          >
             Log In &raquo;
           </Link>
         </div>
@@ -67,7 +81,6 @@ const SignUp = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={creatingUser}
-          className="disabled:bg-gray-300"
         />
         <input
           type="password"
@@ -75,27 +88,37 @@ const SignUp = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           disabled={creatingUser}
-          className="disabled:bg-gray-300"
         />
         <button
           type="submit"
           disabled={creatingUser}
-          className="bg-orange-500 text-white py-2 px-4 rounded-lg disabled:opacity-50"
+          // className="bg-orange-500 text-white py-2 px-4 rounded-lg disabled:opacity-50"
         >
           {creatingUser ? "Creating..." : "Sign Up"}
         </button>
-        <div className="my-4 text-center text-gray-500">or Sign In with provider</div>
+        <div className="my-4 text-center text-gray-500">
+          or Sign In with provider
+        </div>
         <button
           type="button"
           className="flex gap-4 justify-center bg-white 
           text-black w-full rounded-3xl p-2 text-xl border border-gray-300"
         >
-          <Image src={"/google.png"} alt={""} width={24} height={24} />
+          <Image
+            src="/google.png"
+            alt="Google Icon"
+            width={24}
+            height={24}
+            className="h-auto w-auto" 
+          />
           Sign In with Google
         </button>
         <div className="text-center my-4 text-gray-500 border-t pt-4">
           Existing account?{" "}
-          <Link className="underline text-orange-500" href={"/login"}>
+          <Link
+            className="underline text-orange-500"
+            href={"/login"}
+          >
             Log In here &raquo;
           </Link>
         </div>
