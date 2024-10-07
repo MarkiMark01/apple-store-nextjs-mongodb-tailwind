@@ -6,8 +6,8 @@ import {useState} from 'react';
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginInProgress, setLoginInProgress] =
-    useState(false);
+  // const [loginInProgress, setLoginInProgress] =
+  //   useState(false);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
