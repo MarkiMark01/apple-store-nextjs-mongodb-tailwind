@@ -1,39 +1,19 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [errpr, setError] = useState(false);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
-
-    try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" },
-      });
-
-      if (res.ok) {
-        setUserCreated(true);
-        setEmail("");
-        setPassword("");
-      } else {
-        const data = await res.json();
-        setError(data.message || "Error creating user");
-      }
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    await signIn("credentials");
+    setLoading(false);
   };
 
   return (
