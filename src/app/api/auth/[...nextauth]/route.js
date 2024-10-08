@@ -3,7 +3,7 @@ import NextAuth, { getServerSession } from "next-auth";
 import bcrypt from "bcrypt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { User } from "../../../models/User"; // Correct named import
+import { User } from "../../../models/User"; 
 
 export const authOptions = {
   secret: process.env.SECRET_KEY,
