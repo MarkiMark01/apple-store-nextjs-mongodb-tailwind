@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -8,11 +8,11 @@ export default function Home() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const res = await fetch('/api/product');
+        const res = await fetch("/api/product");
         const data = await res.json();
         setProducts(data);
       } catch (error) {
-        console.error('Failed to fetch products:', error);
+        console.error("Failed to fetch products:", error);
       }
     }
 
@@ -20,30 +20,44 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen w-full">
-      {products.length > 0 ? (
-        products.map((product) => (
-          <div key={product._id} className="border p-4 mb-4">
-            <h2 className="text-2xl font-bold">{product.title}</h2>
-            <p className="text-lg">{product.model}</p>
-            <p className="text-lg">{product.colour}</p>
-            <p className="mb-2">{product.description}</p>
-            <Image
-              src={product.image}
-              alt={product.title}
-              width={400}
-              height={300}
-              className="object-cover"
-            />
-            <p className="text-xl font-bold mt-2">${product.price}</p>
-          </div>
-        ))
-        
-      ) : (
-        <p>Loading products...</p>
-      )}
+    <main className="max-w-6xl mx-auto p-4">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {products.length > 0 ? (
+          products.map((product) => (
+            <li
+              key={product._id}
+              className="border p-4 rounded-lg shadow-md transition-transform 
+              duration-200 hover:scale-105 cursor-pointer flex flex-col"
+            >
+              <Image
+                src={product.image}
+                alt={product.title}
+                width={400}
+                height={300}
+                className="object-cover rounded-md mb-4"
+              />
+              <div className="flex-grow">
+                <h2 className="text-2xl font-bold">
+                  {product.title} {product.model}
+                </h2>
+                <p className="text-lg">{product.colour}</p>
+              </div>
+              <section className="flex items-center justify-between p-4 rounded-lg shadow-md mt-auto">
+                <p className="text-2xl font-bold">${product.price}</p>
+                <button
+                  className="border px-4 py-2 font-semibold
+                 rounded-lg bg-gray-900 text-yellow-200"
+                >
+                  Add to cart
+                </button>
+              </section>
+            </li>
+          ))
+        ) : (
+          <p>Loading products...</p>
+        )}
+      </ul>
     </main>
   );
 }
-
 
