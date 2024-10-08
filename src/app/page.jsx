@@ -45,8 +45,9 @@ export default function Home() {
               <section className="flex items-center justify-between p-4 rounded-lg shadow-md mt-auto">
                 <p className="text-2xl font-bold">${product.price}</p>
                 <button
-                  className="border px-4 py-2 font-semibold
-                 rounded-lg bg-gray-900 text-yellow-200"
+                  className="border px-4 py-2 font-semibold rounded-lg 
+                  bg-black text-yellow-200 hover:bg-yellow-200 
+                  hover:text-black"
                 >
                   Add to cart
                 </button>

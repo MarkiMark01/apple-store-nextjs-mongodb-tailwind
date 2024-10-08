@@ -8,7 +8,7 @@ const Header = () => {
   let userName =
     session?.user?.name || session?.user?.email;
   if (userName && userName.includes(" ")) {
-    userName = userName.split(" ")[0]; // Extract the first name if full name is available
+    userName = userName.split(" ")[0];
   }
 
   return (
