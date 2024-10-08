@@ -1,7 +1,7 @@
 const Footer =
   () => {
     return (
-      <footer className="bg-black1 h-14 text-white flex items-center 
+      <footer className="bg-black1 h-12 text-white flex items-center 
       justify-center text-xl">
         &copy;
         2024
