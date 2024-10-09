@@ -23,28 +23,28 @@ export const CartProvider = ({ children }) => {
     fetchCartItems();
   }, []);
 
-//   const addToCart = async (newCartItem) => {
-//     try {
-//       const res = await fetch('/api/shopCart', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(newCartItem),
-//       });
+  const addToCart = async (newCartItem) => {
+    try {
+      const res = await fetch('/api/shopCart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newCartItem),
+      });
 
-//       if (!res.ok) {
-//         throw new Error('Failed to add item to cart');
-//       }
+      if (!res.ok) {
+        throw new Error('Failed to add item to cart');
+      }
 
-//       const savedItem = await res.json();
-//       // console.log('Item added to cart:', savedItem);
+      const savedItem = await res.json();
+      // console.log('Item added to cart:', savedItem);
       
-//       setCart((prevCart) => [...prevCart, savedItem]);
-//     } catch (error) {
-//       console.error('Error adding item to cart:', error);
-//     }
-//   };
+      setCart((prevCart) => [...prevCart, savedItem]);
+    } catch (error) {
+      console.error('Error adding item to cart:', error);
+    }
+  };
 
 //   const removeFromCart = async (itemId) => {
 //     // console.log(`Removing item with ID: ${itemId}`);
