@@ -1,14 +1,17 @@
-
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
 import OvalLoader from "../components/loader/OvalLoader";
+import ProductModal from "../components/modal/ProductModal";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
+  const [selectedProduct, setSelectedProduct] =
+    useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -45,6 +48,16 @@ export default function Home() {
       </div>
     );
   }
+
+  const openModal = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
+  };
 
   return (
     <section className="max-w-6xl mx-auto h-screen p-4">
@@ -83,6 +96,11 @@ export default function Home() {
           </li>
         ))}
       </ul>
+      <ProductModal
+        product={selectedProduct}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </section>
   );
 }
