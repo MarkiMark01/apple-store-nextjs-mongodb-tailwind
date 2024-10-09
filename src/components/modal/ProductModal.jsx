@@ -48,7 +48,63 @@ export default function ProductModal({
         className="bg-white p-6 rounded-lg shadow-lg relative max-w-4xl 
       w-full h-auto overflow-hidden"
       >
-        
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-red-600 text-2xl font-bold"
+        >
+          X
+        </button>
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="flex items-center justify-center w-full lg:w-1/3">
+            <Image
+              src={product.image}
+              alt={product.title}
+              width={400}
+              height={300}
+              className="object-cover rounded-md"
+            />
+          </div>
+          <div className="w-full lg:w-2/3 mt-4">
+            <h2 className="text-xl sm:text-xl md:text-2xl xs:3xl font-bold mb-2">
+              {product.title} {product.model}
+            </h2>
+            <p className="text-lg mb-2 font-semibold">
+              Color: {product.colour}
+            </p>
+            <p className="text-gray-600 mb-4 font-semibold text-lg text-justify">
+              {product.description}
+            </p>
+            <div className="flex flex-col lg:flex-row items-center justify-between">
+              <div className="flex items-center">
+                <button
+                  onClick={decreaseQuantity}
+                  className="border px-3 py-1 rounded-lg text-lg font-bold"
+                >
+                  -
+                </button>
+                <span className="px-4 text-lg">
+                  {quantity}
+                </span>
+                <button
+                  onClick={increaseQuantity}
+                  className="border px-3 py-1 rounded-lg text-lg font-bold"
+                >
+                  +
+                </button>
+                <p className="text-2xl font-bold ml-6">
+                  ${totalPrice}
+                </p>
+              </div>
+              <button
+                onClick={addToCart}
+                className="border px-4 py-2 font-semibold rounded-lg bg-black text-yellow-200
+                 hover:bg-yellow-200 hover:text-black mt-4 lg:mt-0 lg:ml-4"
+              >
+                Add to cart
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
