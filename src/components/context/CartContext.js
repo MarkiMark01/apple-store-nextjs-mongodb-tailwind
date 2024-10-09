@@ -46,30 +46,30 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-//   const removeFromCart = async (itemId) => {
-//     // console.log(`Removing item with ID: ${itemId}`);
+  const removeFromCart = async (itemId) => {
+    // console.log(`Removing item with ID: ${itemId}`);
 
-//     if (!itemId) {
-//       console.error('Item ID is undefined');
-//       return;
-//     }
+    if (!itemId) {
+      console.error('Item ID is undefined');
+      return;
+    }
 
-//     try {
-//       const res = await fetch(`/api/shopCart?id=${itemId}`, {
-//         method: 'DELETE',
-//       });
+    try {
+      const res = await fetch(`/api/shopCart?id=${itemId}`, {
+        method: 'DELETE',
+      });
 
-//       if (!res.ok) {
-//         const errorMessage = await res.json();
-//         throw new Error(`Failed to remove item from cart: ${errorMessage.error}`);
-//       }
+      if (!res.ok) {
+        const errorMessage = await res.json();
+        throw new Error(`Failed to remove item from cart: ${errorMessage.error}`);
+      }
 
-//       setCart((prevCart) => prevCart.filter(item => item._id !== itemId)); 
-//       console.log('Item removed from cart');
-//     } catch (error) {
-//       console.error('Error removing item from cart:', error);
-//     }
-//   };
+      setCart((prevCart) => prevCart.filter(item => item._id !== itemId)); 
+      console.log('Item removed from cart');
+    } catch (error) {
+      console.error('Error removing item from cart:', error);
+    }
+  };
 
   return (
     <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
