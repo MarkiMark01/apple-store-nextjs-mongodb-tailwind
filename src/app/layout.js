@@ -4,6 +4,7 @@ import "./globals.css";
 import { AppProvider } from "../components/AppProvider";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { CartProvider } from "../components/context/CartContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,11 +29,13 @@ export default function RootLayout({ children }) {
       // className="min-h-screen flex flex-col"
       >
         <AppProvider>
-          <Header />
-          <main className="flex-grow mx-auto">
-            {children}
-          </main>
-          <Footer />
+          <CartProvider>
+            <Header />
+            <main className="flex-grow mx-auto">
+              {children}
+            </main>
+            <Footer />
+          </CartProvider>
         </AppProvider>
       </body>
     </html>
