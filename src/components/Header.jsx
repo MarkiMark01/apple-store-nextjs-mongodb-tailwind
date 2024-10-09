@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 
+import ExitIcon from './icons/ExitIcon';
+
 const Header = () => {
   const { data: session, status } = useSession();
 
@@ -42,45 +44,46 @@ const Header = () => {
           <section className="flex gap-4">
             <Link
               href="/"
-              className="px-1 py-1 rounded text-xl font-semibold hover:bg-white hover:text-black"
+              className="px-1 py-1 rounded text-xl font-semibold hover:text-yellow-200"
 
             >
               Home
             </Link>
             <Link
               href="/cart"
-              className="px-1 py-1 rounded text-xl font-semibold hover:bg-white hover:text-black"
+              className="px-1 py-1 rounded text-xl font-semibold hover:text-yellow-200"
 
             >
               Cart
             </Link>
             <Link
               href="/about"
-              className="px-1 py-1 rounded text-xl font-semibold hover:bg-white hover:text-black"
+              className="px-1 py-1 rounded text-xl font-semibold hover:text-yellow-200"
 
             >
               About
             </Link>
             <Link
               href="/profile"
-              className="px-1 py-1 rounded text-xl font-semibold hover:bg-white hover:text-black"
+              className="px-1 py-1 rounded text-xl font-semibold hover:text-yellow-200"
 
             >
               Profile
             </Link>
           </section>
-          <section>
-            <span className="text-yellow-200 mr-4">
-              Hello, {userName}
-            </span>
+          <span>|</span>
+          <section className="flex items-center">
             <button
               type="button"
               onClick={() => signOut()}
-              className="px-1 py-1 rounded text-xl font-semibold border 
-              hover:bg-white hover:text-black"
+              className="px-1 py-1 rounded text-md border 
+              hover:bg-red-600  hover:text-white mr-4"
             >
-              Logout
+              <ExitIcon/>
             </button>
+            <span className="text-yellow-200 py-1">
+              Hello, {userName}
+            </span>
           </section>
         </nav>
       )}
