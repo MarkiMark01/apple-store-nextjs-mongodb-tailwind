@@ -174,7 +174,7 @@ export default function Home() {
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {products.map((product) => (
           <li
-            key={product._id} // Використання _id як ключа
+            key={product._id} 
             onClick={() => openModal(product)}
             className="border p-4 rounded-lg shadow-md transition-transform 
               duration-200 hover:scale-105 cursor-pointer flex flex-col"
