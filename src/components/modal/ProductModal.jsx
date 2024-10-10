@@ -133,6 +133,7 @@ const ProductModal = ({ product, isOpen, onClose, addToCart }) => {
       image: product.image,
       title: product.title,
       model: product.model,
+      colour: product.colour,
       totalPrice: totalPrice,
       quantity: quantity,
     };

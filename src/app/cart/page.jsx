@@ -1,5 +1,7 @@
 "use client";
 import Image from "next/image";
+
+import TrashIcon from '../../components/icons/TrashIcon';
 import { useCart } from "../../components/context/CartContext";
 
 const Cart = () => {
@@ -35,16 +37,22 @@ const Cart = () => {
                 <div
                   className="flex flex-col gap-1 mt-4"
                 >
-                  <h2 className="text-xl font-semibold">
+                  <h2 className="text-2xl font-semibold">
                     {item.title}
                   </h2>
-                  <p className="text-gray-600 text-lg font-semibold">
+                  <p className="text-gray-600 text-xl font-semibold">
                     Model: {item.model}
+                  </p>
+                  <p className="text-gray-600 text-xl font-semibold">
+                    Colour: {item.colour}
                   </p>
                   <p className="text-gray-600 text-lg font-semibold">
                     Quantity: {item.quantity}
                   </p>
-                  <p className="text-lg font-bold mt-36">
+                  <p className="text-gray-600 text-lg font-semibold">
+                    Price: {item.price}
+                  </p>
+                  <p className="text-lg font-semibold mt-36">
                     Total Price: $
                     {(Number(item.totalPrice) || 0).toFixed(
                       0
@@ -56,8 +64,9 @@ const Cart = () => {
                 onClick={() => removeFromCart(item._id)}
                 className="mt-2 border px-4 py-2 text-red-600 font-semibold rounded-lg hover:bg-red-600 hover:text-white"
               >
-                Remove
+                <TrashIcon/>
               </button>
+              
             </div>
           ))}
         </div>
