@@ -4,7 +4,6 @@ import { CartItems } from '../../models/CartItems';
 export async function GET(req) {
   try {
     await mongoose.connect(process.env.MONGO_URL);
-    console.log('MongoDB connected'); 
 
     const cartItems = await CartItems.find();
     return new Response(JSON.stringify(cartItems), {
@@ -25,7 +24,6 @@ export async function GET(req) {
 export async function POST(req) {
   try {
     await mongoose.connect(process.env.MONGO_URL);
-    console.log('MongoDB connected'); 
 
     const body = await req.json();
 

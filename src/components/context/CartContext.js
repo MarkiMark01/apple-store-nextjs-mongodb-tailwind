@@ -65,7 +65,6 @@ export const CartProvider = ({ children }) => {
       }
 
       setCart((prevCart) => prevCart.filter(item => item._id !== itemId)); 
-      console.log('Item removed from cart');
     } catch (error) {
       console.error('Error removing item from cart:', error);
     }
