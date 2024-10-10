@@ -42,6 +42,7 @@ export default function Home() {
       title: product.title,
       model: product.model,
       colour: product.colour,
+      price: product.price,
       totalPrice: product.price,
       quantity: 1,
     });

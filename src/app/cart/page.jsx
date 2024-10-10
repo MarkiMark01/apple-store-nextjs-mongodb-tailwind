@@ -1,15 +1,15 @@
 "use client";
 import Image from "next/image";
 
-import TrashIcon from '../../components/icons/TrashIcon';
+import TrashIcon from "../../components/icons/TrashIcon";
 import { useCart } from "../../components/context/CartContext";
 
 const Cart = () => {
   const { cart, removeFromCart } = useCart();
 
   const totalAmount = cart.reduce((acc, item) => {
-    const price = Number(item.totalPrice) || 0;
-    return acc + price;
+    const totalItemPrice = Number(item.totalPrice) || 0;
+    return acc + totalItemPrice;
   }, 0);
 
   return (
@@ -19,40 +19,34 @@ const Cart = () => {
           Your cart is empty...
         </p>
       ) : (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-6">
           {cart.map((item) => (
             <div
               key={item._id}
-              className="border rounded-lg p-4 shadow-md flex 
-              items-center justify-between"
+              className="border rounded-xl p-6 shadow-lg bg-gray-50 flex items-center justify-between transition-transform duration-300 hover:shadow-2xl hover:scale-105"
             >
               <div className="flex">
                 <Image
                   src={item.image}
                   alt={item.title}
-                  width={300}
-                  height={200}
-                  className="object-cover rounded-md mb-4"
+                  width={280}
+                  height={180}
+                  className="object-cover rounded-lg mb-4"
                 />
-                <div
-                  className="flex flex-col gap-1 mt-4"
-                >
-                  <h2 className="text-2xl font-semibold">
+                <div className="flex flex-col gap-2 ml-6 mt-4">
+                  <h2 className="text-2xl font-semibold text-gray-800">
                     {item.title}
                   </h2>
-                  <p className="text-gray-600 text-xl font-semibold">
+                  <p className="text-gray-500 text-lg font-medium">
                     Model: {item.model}
                   </p>
-                  <p className="text-gray-600 text-xl font-semibold">
+                  <p className="text-gray-500 text-lg font-medium">
                     Colour: {item.colour}
                   </p>
-                  <p className="text-gray-600 text-lg font-semibold">
+                  <p className="text-gray-500 text-lg font-medium">
                     Quantity: {item.quantity}
                   </p>
-                  <p className="text-gray-600 text-lg font-semibold">
-                    Price: {item.price}
-                  </p>
-                  <p className="text-lg font-semibold mt-36">
+                  <p className="text-lg font-semibold mt-20 text-yellow-600">
                     Total Price: $
                     {(Number(item.totalPrice) || 0).toFixed(
                       0
@@ -62,20 +56,35 @@ const Cart = () => {
               </div>
               <button
                 onClick={() => removeFromCart(item._id)}
-                className="mt-2 border px-4 py-2 text-red-600 font-semibold rounded-lg hover:bg-red-600 hover:text-white"
+                className="border border-red-600 px-6 py-3 text-red-600 font-semibold rounded-lg hover:bg-red-600 hover:text-white transition-colors duration-300"
               >
-                <TrashIcon/>
+                <TrashIcon />
               </button>
-              
             </div>
           ))}
         </div>
       )}
       {cart.length > 0 && (
         <div className="mt-4 text-right">
-          <h2 className="text-xl font-bold">
-            Total Amount: ${totalAmount.toFixed(0)}
-          </h2>
+          <div
+            className="text-xl font-bold text-yellow-500 
+          bg-gray-700 p-2 rounded-lg shadow-lg text-center"
+          >
+            <span className="block text-white">
+              Total Amount
+            </span>
+            <span className="text-2xl text-yellow-300">
+              ${totalAmount.toFixed(0)}
+            </span>
+          </div>
+          <div
+            className="text-2xl font-bold bg-red-700 p-2 rounded-lg shadow-lg 
+            text-center mt-2 cursor-pointer transition-transform duration-300 hover:scale-105" 
+          >
+            <span className="text-2xl text-white">
+              Buy Now
+            </span>
+          </div>
         </div>
       )}
     </section>

@@ -38,7 +38,6 @@ export const CartProvider = ({ children }) => {
       }
 
       const savedItem = await res.json();
-      // console.log('Item added to cart:', savedItem);
       
       setCart((prevCart) => [...prevCart, savedItem]);
     } catch (error) {
@@ -47,7 +46,6 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = async (itemId) => {
-    // console.log(`Removing item with ID: ${itemId}`);
 
     if (!itemId) {
       console.error('Item ID is undefined');
