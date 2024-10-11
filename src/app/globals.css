@@ -30,10 +30,10 @@ input[type="email"]:disabled,
 input[type="password"]:disabled,
 input[type="tel"]:disabled,
 input[type="text"]:disabled {
-  @apply bg-gray-200 opacity-50 border-gray-300; /* Спрощення стилів */
+  @apply bg-gray-200 opacity-50 border-gray-300; 
 }
 
 button[type="submit"]:disabled {
-  @apply cursor-not-allowed opacity-80; /* Застосування стилів */
+  @apply cursor-not-allowed opacity-80; 
 }
 

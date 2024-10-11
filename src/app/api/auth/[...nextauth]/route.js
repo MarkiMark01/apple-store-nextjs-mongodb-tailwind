@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
-import NextAuth, { getServerSession } from "next-auth";
+import NextAuth from "next-auth";
 import bcrypt from "bcrypt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { User } from "../../../models/User"; 
+import User from "../../../models/User"; 
 
-export const authOptions = {
+const handler = NextAuth({
   secret: process.env.SECRET_KEY,
   providers: [
     GoogleProvider({
@@ -19,7 +19,7 @@ export const authOptions = {
         email: { label: "Email", type: "email", placeholder: "test@example.com" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const email = credentials?.email;
         const password = credentials?.password;
 
@@ -41,10 +41,10 @@ export const authOptions = {
       }
     })
   ],
-};
+});
 
-const handler = NextAuth(authOptions);
-
+// Використовуємо default export
 export { handler as GET, handler as POST };
+
 
 
