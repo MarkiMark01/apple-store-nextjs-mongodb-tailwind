@@ -1,7 +1,4 @@
-// src/components/NavLinks.jsx
-
-"use client"; // Додано, щоб вказати, що це клієнтський компонент
-
+"use client"; 
 import Link from "next/link";
 
 const NavLinks = ({ currentPath }) => {

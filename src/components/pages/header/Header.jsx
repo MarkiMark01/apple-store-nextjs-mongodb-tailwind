@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { usePathname } from 'next/navigation'; 
 
-import ExitIcon from './icons/ExitIcon';
-import NavLinks from './hooks/useNavLinks';
+import NavLinks from '../../hooks/useNavLinks';
+import LogoutItems from './LogoutItems';
 
 const Header = () => {
   const { data: session, status } = useSession();
@@ -46,20 +46,7 @@ const Header = () => {
         <nav className="pl-4 flex items-center justify-between gap-6 pr-4">
           <NavLinks currentPath={currentPath} />
           <span>|</span>
-          <section className="flex items-center">
-            <button
-              type="button"
-              onClick={() => signOut()}
-              className="px-1 py-1 rounded text-md border 
-              hover:bg-red-600 hover:text-white mr-4"
-            >
-              <ExitIcon/>
-            </button>
-            <span className="text-yellow-200 py-1">
-              <span className="hidden lg:inline">Hello, </span>
-              {userName}
-            </span>
-          </section>
+          <LogoutItems userName={userName}/>
         </nav>
       )}
     </header>
