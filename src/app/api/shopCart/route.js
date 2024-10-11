@@ -139,15 +139,15 @@ export async function DELETE(req) {
       );
     } 
     else {
-      // await CartItems.deleteMany({}); 
+      await CartItems.deleteMany({}); 
 
-      // return new Response(
-      //   JSON.stringify({ message: "All items removed successfully" }),
-      //   {
-      //     status: 200,
-      //     headers: { "Content-Type": "application/json" },
-      //   }
-      // );
+      return new Response(
+        JSON.stringify({ message: "All items removed successfully" }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
   } catch (error) {
     console.error("Error deleting item from cart:", error);
