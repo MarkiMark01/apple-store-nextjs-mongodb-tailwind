@@ -2,10 +2,11 @@
 import Image from "next/image";
 
 import TrashIcon from "../../components/icons/TrashIcon";
+import CartIcon from '../../components/icons/CartIcon';
 import { useCart } from "../../components/context/CartContext";
 
 const Cart = () => {
-  const { cart, removeFromCart } = useCart();
+  const { cart, removeFromCart, clearCart } = useCart();
 
   const totalAmount = cart.reduce((acc, item) => {
     const totalItemPrice = Number(item.totalPrice) || 0;
@@ -13,11 +14,13 @@ const Cart = () => {
   }, 0);
 
   return (
-    <section className="max-w-6xl mx-auto min-h-screen p-4">
+    <section className="max-w-6xl mx-auto min-h-screen p-4 ">
       {cart.length === 0 ? (
-        <p className="text-xl font-bold mb-4 text-center">
-          Your cart is empty...
-        </p>
+        <div className="text-xl font-bold flex items-center
+        justify-center min-h-screen gap-4">
+          <p className="text-2xl font-semibold">Your cart is empty...</p>
+          <CartIcon/>
+        </div>
       ) : (
         <div className="flex flex-col gap-6">
           {cart.map((item) => (
@@ -77,14 +80,17 @@ const Cart = () => {
               ${totalAmount.toFixed(0)}
             </span>
           </div>
-          <div
+          {/* <div
             className="text-2xl font-bold bg-red-700 p-2 rounded-lg shadow-lg 
             text-center mt-2 cursor-pointer transition-transform duration-300 hover:scale-105" 
+            onClick={clearCart}
           >
-            <span className="text-2xl text-white">
+            <span 
+            className="text-2xl text-white"
+            >
               Buy Now
             </span>
-          </div>
+          </div> */}
         </div>
       )}
     </section>

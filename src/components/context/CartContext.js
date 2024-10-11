@@ -46,30 +46,43 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = async (itemId) => {
-
     if (!itemId) {
       console.error('Item ID is undefined');
       return;
     }
-
     try {
       const res = await fetch(`/api/shopCart?id=${itemId}`, {
         method: 'DELETE',
       });
-
       if (!res.ok) {
         const errorMessage = await res.json();
         throw new Error(`Failed to remove item from cart: ${errorMessage.error}`);
       }
-
       setCart((prevCart) => prevCart.filter(item => item._id !== itemId)); 
     } catch (error) {
       console.error('Error removing item from cart:', error);
     }
   };
 
+  const clearCart = async () => {
+    try {
+      const res = await fetch('/api/shopCart', {
+        method: 'DELETE',
+      });
+  
+      if (!res.ok) {
+        throw new Error('Failed to clear cart');
+      }
+  
+      setCart([]);
+    } catch (error) {
+      console.error("Error clearing cart:", error);
+    }
+  };
+  
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );

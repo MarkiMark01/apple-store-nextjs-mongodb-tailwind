@@ -32,7 +32,7 @@ const ProductModal = ({ product, isOpen, onClose, addToCart }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
       <div className="bg-white rounded-lg p-6 max-w-lg mx-auto relative">
         <button
           onClick={onClose}
