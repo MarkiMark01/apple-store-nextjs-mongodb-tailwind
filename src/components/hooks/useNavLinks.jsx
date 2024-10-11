@@ -1,9 +1,10 @@
+// src/components/NavLinks.jsx
+
+"use client"; // Додано, щоб вказати, що це клієнтський компонент
+
 import Link from "next/link";
-import { useRouter } from "next/router";
 
-const useNavLinks = () => {
-  const router = useRouter();
-
+const NavLinks = ({ currentPath }) => {
   const links = [
     { href: "/", label: "Home" },
     { href: "/cart", label: "Cart" },
@@ -18,7 +19,7 @@ const useNavLinks = () => {
           key={href}
           href={href}
           className={`px-1 py-1 rounded text-xl font-semibold 
-            ${router.pathname === href ? "bg-white text-yellow-200" : "hover:text-yellow-200"}`}
+            ${currentPath === href ? "bg-gray-200 text-black hover:text-red-500" : "hover:text-yellow-200"}`}
         >
           {label}
         </Link>
@@ -27,4 +28,6 @@ const useNavLinks = () => {
   );
 };
 
-export default useNavLinks;
+export default NavLinks;
+
+

@@ -1,11 +1,14 @@
 "use client";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
+import { usePathname } from 'next/navigation'; 
 
 import ExitIcon from './icons/ExitIcon';
+import NavLinks from './hooks/useNavLinks';
 
 const Header = () => {
   const { data: session, status } = useSession();
+  const currentPath = usePathname(); 
 
   let userName =
     session?.user?.name || session?.user?.email;
@@ -41,43 +44,14 @@ const Header = () => {
       </nav>
       {status === "authenticated" && (
         <nav className="pl-4 flex items-center justify-between gap-6 pr-4">
-          <section className="flex gap-4">
-            <Link
-              href="/"
-              className="px-1 py-1 rounded text-xl font-semibold hover:text-yellow-200"
-
-            >
-              Home
-            </Link>
-            <Link
-              href="/cart"
-              className="px-1 py-1 rounded text-xl font-semibold hover:text-yellow-200"
-
-            >
-              Cart
-            </Link>
-            <Link
-              href="/about"
-              className="px-1 py-1 rounded text-xl font-semibold hover:text-yellow-200"
-
-            >
-              About
-            </Link>
-            <Link
-              href="/profile"
-              className="px-1 py-1 rounded text-xl font-semibold hover:text-yellow-200"
-
-            >
-              Profile
-            </Link>
-          </section>
+          <NavLinks currentPath={currentPath} />
           <span>|</span>
           <section className="flex items-center">
             <button
               type="button"
               onClick={() => signOut()}
               className="px-1 py-1 rounded text-md border 
-              hover:bg-red-600  hover:text-white mr-4"
+              hover:bg-red-600 hover:text-white mr-4"
             >
               <ExitIcon/>
             </button>
