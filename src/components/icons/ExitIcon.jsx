@@ -1,4 +1,4 @@
-const ExitIcon = ({className="w-7 h-7"}) => {
+const ExitIcon = ({className="w-5 h-5"}) => {
   return (
     <>
       <svg

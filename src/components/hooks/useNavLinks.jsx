@@ -10,12 +10,12 @@ const NavLinks = ({ currentPath }) => {
   ];
 
   return (
-    <section className="flex gap-4">
+    <section className="flex gap-1 lg:gap-4">
       {links.map(({ href, label }) => (
         <Link
           key={href}
           href={href}
-          className={`px-1 py-1 rounded text-xl font-semibold 
+          className={`px-1 py-1 rounded text-lg lg:text-xl lg:font-semibold 
             ${currentPath === href ? "bg-gray-200 text-black hover:text-red-500" : "hover:text-yellow-200"}`}
         >
           {label}
