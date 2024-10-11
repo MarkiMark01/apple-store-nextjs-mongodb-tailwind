@@ -95,7 +95,7 @@ const SignUp = () => {
         <button
           type="submit"
           disabled={creatingUser}
-          className="bg-orange-500 text-white py-2 px-4 rounded-lg w-full disabled:opacity-50"
+          className="text-white py-2 px-4 rounded-lg w-full disabled:opacity-50 hover:bg-gray-800"
         >
           {creatingUser ? "Creating..." : "Sign Up"}
         </button>
@@ -105,7 +105,8 @@ const SignUp = () => {
         <button
           type="button"
           onClick={handleGoogleLogin}
-          className="flex gap-4 justify-center items-center bg-white text-black w-full rounded-3xl p-2 text-xl border border-gray-300"
+          className="flex gap-4 justify-center items-center bg-white text-black w-full rounded-3xl p-2 
+          text-xl border border-gray-300 hover:bg-gray-50"
         >
           <Image
             src="/google.png"

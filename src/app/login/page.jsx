@@ -77,7 +77,7 @@ const Login = () => {
         <button
           type="submit"
           disabled={loading}
-          className="bg-blue-500 text-white rounded p-2 w-full"
+          className="text-white rounded p-2 w-full hover:bg-gray-800"
         >
           {loading ? "Loading..." : "Log In"}
         </button>
@@ -87,7 +87,8 @@ const Login = () => {
         <button
           type="button"
           onClick={handleGoogleLogin}
-          className="flex gap-4 justify-center items-center bg-white text-black w-full rounded-3xl p-2 text-xl border border-gray-300"
+          className="flex gap-4 justify-center items-center bg-white text-black w-full 
+          rounded-3xl p-2 text-xl border border-gray-300 hover:bg-gray-50"
         >
           <Image
             src="/google.png"
