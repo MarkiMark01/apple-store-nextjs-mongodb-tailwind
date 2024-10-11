@@ -82,7 +82,8 @@ const Header = () => {
               <ExitIcon/>
             </button>
             <span className="text-yellow-200 py-1">
-              Hello, {userName}
+              <span className="hidden lg:inline">Hello, </span>
+              {userName}
             </span>
           </section>
         </nav>
