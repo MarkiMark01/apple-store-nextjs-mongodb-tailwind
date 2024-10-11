@@ -1,7 +1,7 @@
 "use client"; 
 import Link from "next/link";
 
-const NavLinks = ({ currentPath }) => {
+const NavLinks = ({ currentPath, onClose }) => { 
   const links = [
     { href: "/", label: "Home" },
     { href: "/cart", label: "Cart" },
@@ -17,6 +17,7 @@ const NavLinks = ({ currentPath }) => {
           href={href}
           className={`px-1 py-1 rounded text-lg lg:text-xl lg:font-semibold 
             ${currentPath === href ? "bg-gray-200 text-black hover:text-red-500" : "hover:text-yellow-200"}`}
+          onClick={onClose} 
         >
           {label}
         </Link>
@@ -26,5 +27,6 @@ const NavLinks = ({ currentPath }) => {
 };
 
 export default NavLinks;
+
 
 

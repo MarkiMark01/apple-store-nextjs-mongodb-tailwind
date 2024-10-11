@@ -64,6 +64,7 @@ const Header = () => {
         <NavigationItems
           isOpen={isModalOpen}
           onClose={handleCloseModal}
+          userName={userName}
         />
       )}
     </header>
