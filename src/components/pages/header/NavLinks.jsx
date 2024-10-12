@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useCart } from '../../context/CartContext';
 import HomeIcon from '../../icons/HomeIcon';
 import CartIcon from '../../icons/CartIcon';
+import AboutIcon from '../../icons/AboutIcon';
 
 const NavLinks = ({ currentPath, onClose }) => {
   const { cart } = useCart();
@@ -15,7 +16,7 @@ const NavLinks = ({ currentPath, onClose }) => {
           <span className="ml-1 bg-red-500 text-white rounded-full px-2 text-xs">{cart.length}</span>
         </span>
       ) },
-    { href: "/about", label: "About" },
+    { href: "/about", label: <AboutIcon/> },
     { href: "/profile", label: "Profile" },
   ];
 
