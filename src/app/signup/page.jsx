@@ -73,7 +73,7 @@ const SignUp = () => {
       {error && <div className="my-4 text-center text-red-500">{error}</div>}
 
       <form
-        className="flex flex-col gap-4 items-center justify-center h-full max-w-md mx-auto mt-8"
+        className="flex flex-col gap-4 items-center justify-center h-full max-w-md mx-auto mt-8 form"
         onSubmit={handleFormSubmit}
       >
         <input
