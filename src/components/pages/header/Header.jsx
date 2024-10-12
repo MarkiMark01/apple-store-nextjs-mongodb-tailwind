@@ -33,7 +33,7 @@ const Header = () => {
   };
 
   return (
-    <header className="flex items-center justify-between bg-black1 text-white h-14">
+    <header className="flex items-center justify-between bg-black1 text-white h-14 sticky top-0 z-10">
       <Link
         href={"/"}
         className="font-semibold text-xl lg:text-3xl md:text-2xl pl-4"
@@ -72,3 +72,4 @@ const Header = () => {
 };
 
 export default Header;
+

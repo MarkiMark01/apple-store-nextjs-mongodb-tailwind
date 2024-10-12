@@ -14,7 +14,8 @@ const NavLinks = ({ currentPath, onClose }) => {
     { href: "/cart", label: (
         <span className="flex items-center">
           <CartIcon />
-          <span className="ml-1 bg-red-500 text-white rounded-full px-2 text-xs">{cart.length}</span>
+          <span className="ml-1 bg-red-500 text-white rounded-full 
+          px-2 text-sm">{cart.length}</span>
         </span>
       ) },
     { href: "/about", label: <AboutIcon/> },
