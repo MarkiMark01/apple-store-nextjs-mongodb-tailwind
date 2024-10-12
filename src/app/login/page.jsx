@@ -54,7 +54,7 @@ const Login = () => {
       <h1 className="font-semibold text-4xl text-center pt-16">Log In</h1>
 
       <form
-        className="flex flex-col gap-4 items-center justify-center h-full max-w-md mx-auto mt-8"
+        className="flex flex-col gap-4 items-center justify-center h-full max-w-md mx-auto mt-8 form"
         onSubmit={handleFormSubmit}
       >
         <input
@@ -63,7 +63,6 @@ const Login = () => {
           disabled={loading}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border p-2 rounded w-full"
         />
         <input
           type="password"
@@ -71,13 +70,11 @@ const Login = () => {
           disabled={loading}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 rounded w-full"
         />
         {error && <div className="text-red-500">{error}</div>}
         <button
           type="submit"
           disabled={loading}
-          className="text-white rounded p-2 w-full hover:bg-gray-800"
         >
           {loading ? "Loading..." : "Log In"}
         </button>
