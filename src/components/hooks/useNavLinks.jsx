@@ -1,10 +1,16 @@
 "use client"; 
 import Link from "next/link";
 
-const NavLinks = ({ currentPath, onClose }) => { 
+import {useCart} from '../context/CartContext';
+import HomeIcon from '../../components/icons/HomeIcon';
+
+const NavLinks = ({ currentPath, onClose }) => {
+  
+  const {cart} = useCart()
+
   const links = [
-    { href: "/", label: "Home" },
-    { href: "/cart", label: "Cart" },
+    { href: "/", label: <HomeIcon/> },
+    { href: "/cart", label:  `Cart (${cart.length})` },
     { href: "/about", label: "About" },
     { href: "/profile", label: "Profile" },
   ];
