@@ -1,6 +1,6 @@
 "use client"; 
 import React from "react";
-import NavLinks from '../hooks/useNavLinks';
+import NavLinks from '../pages/header/NavLinks';
 import LogoutItems from '../pages/header/LogoutItems';
 
 const NavigationItems = ({ isOpen, onClose, userName }) => {

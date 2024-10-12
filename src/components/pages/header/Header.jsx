@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-import NavLinks from "../../hooks/useNavLinks";
+import NavLinks from "./NavLinks";
 import LogoutItems from "./LogoutItems";
 import SignItems from "./SignItems";
 import NavigationItems from "../../modal/NavigationItems";

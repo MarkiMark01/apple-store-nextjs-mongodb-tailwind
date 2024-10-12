@@ -1,16 +1,20 @@
 "use client"; 
 import Link from "next/link";
-
-import {useCart} from '../context/CartContext';
-import HomeIcon from '../../components/icons/HomeIcon';
+import { useCart } from '../../context/CartContext';
+import HomeIcon from '../../icons/HomeIcon';
+import CartIcon from '../../icons/CartIcon';
 
 const NavLinks = ({ currentPath, onClose }) => {
-  
-  const {cart} = useCart()
+  const { cart } = useCart();
 
   const links = [
-    { href: "/", label: <HomeIcon/> },
-    { href: "/cart", label:  `Cart (${cart.length})` },
+    { href: "/", label: <HomeIcon /> },
+    { href: "/cart", label: (
+        <span className="flex items-center">
+          <CartIcon />
+          <span className="ml-1 bg-red-500 text-white rounded-full px-2 text-xs">{cart.length}</span>
+        </span>
+      ) },
     { href: "/about", label: "About" },
     { href: "/profile", label: "Profile" },
   ];
@@ -33,6 +37,7 @@ const NavLinks = ({ currentPath, onClose }) => {
 };
 
 export default NavLinks;
+
 
 
 
