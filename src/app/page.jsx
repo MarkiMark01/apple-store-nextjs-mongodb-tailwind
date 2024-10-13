@@ -106,11 +106,11 @@ export default function Home() {
           value={input}
           onChange={handleInput}
           placeholder="What are you looking to buy today?"
-          className="mb-4 w-1/2 max-w-3xl flex p-2 rounded-lg border 
+          className="mb-4 max-w-full flex p-2 rounded-lg border 
           border-gray-300 shadow-md focus:outline-none focus:ring-2 
           focus:ring-gray-500"
         />
-        <button
+        {/* <button
           type="button"
           className="flex items-center bg-gray-800 text-yellow-200 
           rounded-3xl p-2 text-xlhover:bg-gray-700 mb-4 w-24 shadow-lg 
@@ -119,7 +119,7 @@ export default function Home() {
         >
           <CircleIcon />
           Filters
-        </button>
+        </button> */}
       </section>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {filteredProducts.map((product) => (

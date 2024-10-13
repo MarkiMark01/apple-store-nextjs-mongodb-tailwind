@@ -44,3 +44,7 @@ button[type="submit"]:disabled {
   }
 }
 
+input::placeholder {
+  @apply text-gray-600 italic;
+}
+
