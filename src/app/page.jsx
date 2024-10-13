@@ -1,18 +1,23 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+
 import OvalLoader from "../components/loader/OvalLoader";
 import ProductModal from "../components/modal/ProductModal";
 import { useCart } from "../components/context/CartContext";
+import CircleIcon from '../components/icons/CircleIcon';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] =
+    useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [input, setInput] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(
+    []
+  );
 
   const { addToCart } = useCart();
 
@@ -40,7 +45,9 @@ export default function Home() {
   useEffect(() => {
     if (input) {
       const results = products.filter((product) =>
-        product.title.toLowerCase().includes(input.toLowerCase())
+        product.title
+          .toLowerCase()
+          .includes(input.toLowerCase())
       );
       setFilteredProducts(results);
     } else {
@@ -105,9 +112,12 @@ export default function Home() {
         />
         <button
           type="button"
-          className="bg-gray-800 text-yellow-200 rounded-3xl p-2 text-xl 
-          hover:bg-gray-700 mb-4 w-24"
+          className="flex items-center bg-gray-800 text-yellow-200 
+          rounded-3xl p-2 text-xlhover:bg-gray-700 mb-4 w-24 shadow-lg 
+          transition-transform duration-200 transform hover:scale-105
+          h-12"
         >
+          <CircleIcon />
           Filters
         </button>
       </section>
@@ -158,4 +168,3 @@ export default function Home() {
     </section>
   );
 }
-
