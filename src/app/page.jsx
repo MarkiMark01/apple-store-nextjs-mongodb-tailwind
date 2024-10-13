@@ -12,6 +12,7 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [input, setInput] = useState('');
   
   const { addToCart } = useCart();
 
@@ -48,7 +49,6 @@ export default function Home() {
     });
   };
   
-
   const openModal = (product) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
@@ -58,6 +58,10 @@ export default function Home() {
     setIsModalOpen(false);
     setSelectedProduct(null);
   };
+
+  const handleInput = (e) => {
+    setInput(e.target.value)
+  }
 
   if (isLoading) {
     return (
@@ -77,6 +81,15 @@ export default function Home() {
 
   return (
     <section className="max-w-6xl mx-auto min-h-screen p-4">
+      <section>
+        <input 
+        type="text" 
+        value={input} 
+        onChange={handleInput}
+        placeholder="Search"
+        
+        />
+      </section>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {products.map((product) => (
           <li
