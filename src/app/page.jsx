@@ -37,16 +37,16 @@ export default function Home() {
     fetchProducts();
   }, []);
 
-  // useEffect(() => {
-  //   if (input) {
-  //     const results = products.filter((product) =>
-  //       product.title.toLowerCase().includes(input.toLowerCase())
-  //     );
-  //     setFilteredProducts(results);
-  //   } else {
-  //     setFilteredProducts(products);
-  //   }
-  // }, [input, products]);
+  useEffect(() => {
+    if (input) {
+      const results = products.filter((product) =>
+        product.title.toLowerCase().includes(input.toLowerCase())
+      );
+      setFilteredProducts(results);
+    } else {
+      setFilteredProducts(products);
+    }
+  }, [input, products]);
 
   const addItemsToCart = (product) => {
     addToCart({
@@ -71,9 +71,9 @@ export default function Home() {
     setSelectedProduct(null);
   };
 
-  // const handleInput = (e) => {
-  //   setInput(e.target.value);
-  // };
+  const handleInput = (e) => {
+    setInput(e.target.value);
+  };
 
   if (isLoading) {
     return (
