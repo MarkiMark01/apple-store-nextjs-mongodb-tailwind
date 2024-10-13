@@ -43,7 +43,6 @@ const handler = NextAuth({
   ],
 });
 
-// Використовуємо default export
 export { handler as GET, handler as POST };
 
 
