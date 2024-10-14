@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
 
 const CartContext = createContext();
 
@@ -25,61 +26,65 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = async (newCartItem) => {
     try {
-      const res = await fetch('/api/shopCart', {
-        method: 'POST',
+      const res = await fetch("/api/shopCart", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(newCartItem),
       });
 
       if (!res.ok) {
-        throw new Error('Failed to add item to cart');
+        throw new Error("Failed to add item to cart");
       }
 
       const savedItem = await res.json();
-      
       setCart((prevCart) => [...prevCart, savedItem]);
     } catch (error) {
-      console.error('Error adding item to cart:', error);
+      console.error("Error adding item to cart:", error);
     }
   };
 
   const removeFromCart = async (itemId) => {
     if (!itemId) {
-      console.error('Item ID is undefined');
+      console.error("Item ID is undefined");
       return;
     }
     try {
       const res = await fetch(`/api/shopCart?id=${itemId}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
       if (!res.ok) {
         const errorMessage = await res.json();
         throw new Error(`Failed to remove item from cart: ${errorMessage.error}`);
       }
-      setCart((prevCart) => prevCart.filter(item => item._id !== itemId)); 
+
+      setCart((prevCart) => prevCart.filter((item) => item._id !== itemId));
+      
+      toast.success("Item removed from cart!");
     } catch (error) {
-      console.error('Error removing item from cart:', error);
+      toast.error("Error removing item from cart");
+      console.error("Error removing item from cart:", error);
     }
   };
 
   const clearCart = async () => {
     try {
-      const res = await fetch('/api/shopCart', {
-        method: 'DELETE',
+      const res = await fetch("/api/shopCart", {
+        method: "DELETE",
       });
-  
+
       if (!res.ok) {
-        throw new Error('Failed to clear cart');
+        throw new Error("Failed to clear cart");
       }
-  
+
       setCart([]);
+      toast.success("Cart cleared successfully!");
     } catch (error) {
+      toast.error("Error clearing cart");
       console.error("Error clearing cart:", error);
     }
   };
-  
 
   return (
     <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
