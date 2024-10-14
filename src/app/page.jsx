@@ -67,7 +67,6 @@ export default function Home() {
       quantity: 1,
     });
 
-    // Show success toast notification
     toast.success(`${product.title} added to cart successfully!`);
   };
 
