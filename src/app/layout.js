@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from 'react-hot-toast';
 
 import { AppProvider } from "../components/AppProvider";
 import Header from "../components/pages/header/Header";
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         <AppProvider>
           <CartProvider>
             <Header />
+            <Toaster/>
             <main className="flex-grow mx-auto">
               {children}
             </main>

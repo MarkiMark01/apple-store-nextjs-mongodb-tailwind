@@ -1,11 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { toast } from "react-hot-toast";
 
 import OvalLoader from "../components/loader/OvalLoader";
 import ProductModal from "../components/modal/ProductModal";
 import { useCart } from "../components/context/CartContext";
-import CircleIcon from '../components/icons/CircleIcon';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -66,6 +66,9 @@ export default function Home() {
       totalPrice: product.price,
       quantity: 1,
     });
+
+    // Show success toast notification
+    toast.success(`${product.title} added to cart successfully!`);
   };
 
   const openModal = (product) => {
@@ -110,16 +113,6 @@ export default function Home() {
           border-gray-300 shadow-md focus:outline-none focus:ring-2 
           focus:ring-gray-500"
         />
-        {/* <button
-          type="button"
-          className="flex items-center bg-gray-800 text-yellow-200 
-          rounded-3xl p-2 text-xlhover:bg-gray-700 mb-4 w-24 shadow-lg 
-          transition-transform duration-200 transform hover:scale-105
-          h-12"
-        >
-          <CircleIcon />
-          Filters
-        </button> */}
       </section>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {filteredProducts.map((product) => (
@@ -168,3 +161,4 @@ export default function Home() {
     </section>
   );
 }
+
