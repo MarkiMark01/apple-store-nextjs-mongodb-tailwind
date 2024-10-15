@@ -83,16 +83,16 @@
 
 // export default Cart;
 
-
 "use client";
 import Image from "next/image";
-import Link from 'next/link'; // Додано імпорт Link
+import Link from "next/link";
+
 import TrashIcon from "../../components/icons/TrashIcon";
-import CartIcon from '../../components/icons/CartIcon';
+import CartIcon from "../../components/icons/CartIcon";
 import { useCart } from "../../components/context/CartContext";
 
 const Cart = () => {
-  const { cart, removeFromCart } = useCart();
+  const { cart, removeFromCart, clearCart } = useCart();
 
   const totalAmount = cart.reduce((acc, item) => {
     const totalItemPrice = Number(item.totalPrice) || 0;
@@ -103,7 +103,9 @@ const Cart = () => {
     <section className="max-w-6xl mx-auto min-h-screen p-4">
       {cart.length === 0 ? (
         <div className="text-xl font-bold flex items-center justify-center min-h-screen gap-4">
-          <p className="text-2xl font-semibold">Ваш кошик порожній...</p>
+          <p className="text-2xl font-semibold">
+            Your cart is empty...
+          </p>
           <CartIcon />
         </div>
       ) : (
@@ -116,7 +118,7 @@ const Cart = () => {
               <div className="flex flex-col lg:flex-row">
                 <Image
                   src={item.image}
-                  alt={item.title} // Додано атрибут alt
+                  alt={item.title}
                   width={280}
                   height={180}
                   className="object-cover rounded-lg mb-4 lg:mb-0"
@@ -126,16 +128,17 @@ const Cart = () => {
                     {item.title}
                   </h2>
                   <p className="text-gray-500 text-lg font-medium">
-                    Модель: {item.model}
+                    Model: {item.model}
                   </p>
                   <p className="text-gray-500 text-lg font-medium">
-                    Колір: {item.colour}
+                    Colour: {item.colour}
                   </p>
                   <p className="text-gray-500 text-lg font-medium">
-                    Кількість: {item.quantity}
+                    Quantity: {item.quantity}
                   </p>
                   <p className="text-lg font-semibold mt-4 lg:mt-20 text-yellow-600">
-                    Загальна вартість: ${Number(item.totalPrice).toFixed(2)} {/* Виправлено на toFixed(2) */}
+                    Total Price: $
+                    {Number(item.totalPrice).toFixed(0)}
                   </p>
                 </div>
               </div>
@@ -152,15 +155,24 @@ const Cart = () => {
       {cart.length > 0 && (
         <div className="mt-4 text-right">
           <div className="text-xl font-bold text-yellow-500 bg-gray-700 p-2 rounded-lg shadow-lg text-center">
-            <span className="block text-white">Загальна сума</span>
-            <span className="text-2xl text-yellow-300">${totalAmount.toFixed(2)}</span> {/* Виправлено на toFixed(2) */}
+            <span className="block text-white">
+              Total Amount
+            </span>
+            <span className="text-2xl text-yellow-300">
+              ${totalAmount.toFixed(0)}
+            </span>
           </div>
-          <Link
+          <div
             className="text-2xl font-bold bg-red-700 p-2 rounded-lg shadow-lg text-center mt-2 cursor-pointer transition-transform duration-300 hover:scale-105"
-            href={'/payment'}
+            // onClick={clearCart}
           >
-            <span className="text-2xl text-white">Купити зараз</span>
-          </Link>
+            <Link
+              href={"/payment"}
+              className="text-2xl text-white block p-2 rounded-lg"
+            >
+              Buy Now
+            </Link>
+          </div>
         </div>
       )}
     </section>
