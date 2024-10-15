@@ -148,8 +148,8 @@ const PaymentPage = () => {
 
   const handlePayment = (e) => {
     e.preventDefault();
-    if (!cardNumber || !cardHolder || !expiryDate || !cvc) {
-      setErrorMessage("Please fill in all fields."); 
+    if (cardNumber.length !== 16 || !cardHolder || !expiryDate || !cvc) {
+      setErrorMessage("Please fill in all fields and ensure the card number is exactly 16 characters long."); 
       return;
     }
     setErrorMessage("");
@@ -166,8 +166,27 @@ const PaymentPage = () => {
     router.push('/');
   };
 
+  const handleToBack = () => {
+    router.push('/cart');
+  };
+
+  const handleCardNumberBlur = () => {
+    if (cardNumber.length !== 16) {
+      setErrorMessage("Card number must be exactly 16 characters long.");
+    } else {
+      setErrorMessage("");
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto min-h-screen p-4">
+      <button 
+        type="button" 
+        className="mb-4 font-bold text-xl"
+        onClick={handleToBack}
+      >
+        Back
+      </button>
       <form
         onSubmit={handlePayment}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -188,6 +207,7 @@ const PaymentPage = () => {
             placeholder="0000 0000 0000 0000"
             value={cardNumber}
             onChange={(e) => setCardNumber(e.target.value)}
+            onBlur={handleCardNumberBlur} 
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
