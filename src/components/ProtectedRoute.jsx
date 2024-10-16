@@ -3,6 +3,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
+import OvalLoader from "./loader/OvalLoader";
+
 const ProtectedRoute = ({ children }) => {
   const { status } = useSession();
   const router = useRouter();
@@ -14,7 +16,7 @@ const ProtectedRoute = ({ children }) => {
   }, [status, router]);
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return <OvalLoader/>;
   }
 
   return <>{children}</>;
