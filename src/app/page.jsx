@@ -152,7 +152,7 @@ export default function Home() {
           <span className="hidden sm:inline">Slider</span>
         </button>
       </section>
-      {/* {isSliderVisible && ( */}
+      {isSliderVisible && (
         <section className="mb-6">
           <h3 className="text-lg font-semibold mb-2">
             Price Range: ${priceRange[0]} - ${priceRange[1]}
@@ -179,7 +179,7 @@ export default function Home() {
             )}
           />
         </section>
-      {/* )} */}
+      )}
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {filteredProducts.map((product) => (
           <li
