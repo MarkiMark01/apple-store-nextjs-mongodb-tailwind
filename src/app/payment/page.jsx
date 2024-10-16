@@ -1,8 +1,8 @@
-'use client';
+"use client";
 import React, { useState, useEffect } from "react";
-import { useRouter } from 'next/navigation'; 
-import ThanksModal from '../../components/modal/ThanksModal';
-import { useCart } from "../../components/context/CartContext"; 
+import { useRouter } from "next/navigation";
+import ThanksModal from "../../components/modal/ThanksModal";
+import { useCart } from "../../components/context/CartContext";
 
 const PaymentPage = () => {
   const [cardNumber, setCardNumber] = useState("");
@@ -12,36 +12,37 @@ const PaymentPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { clearCart } = useCart(); 
-  const router = useRouter(); 
+  const { clearCart } = useCart();
+  const router = useRouter();
 
   const handlePayment = (e) => {
     e.preventDefault();
-    if (cardNumber.replace(/\s/g, '').length !== 16 || !cardHolder || !expiryDate || !cvc) {
-      setErrorMessage("Please fill in all fields and ensure the card number is exactly 16 characters long."); 
+    if (
+      cardNumber.replace(/\s/g, "").length !== 16 ||
+      !cardHolder ||
+      !expiryDate ||
+      !cvc
+    ) {
+      setErrorMessage(
+        "Please fill in all fields and ensure the card number is exactly 16 characters long."
+      );
       return;
     }
     setErrorMessage("");
-
-    console.log("Payment processed:", {
-      cardNumber,
-      cardHolder,
-      expiryDate,
-      cvc,
-    });
-    
     openModal();
     clearCart();
-    router.push('/');
+    router.push("/");
   };
 
   const handleToBack = () => {
-    router.push('/cart');
+    router.push("/cart");
   };
 
   const handleCardNumberBlur = () => {
-    if (cardNumber.replace(/\s/g, '').length !== 16) {
-      setErrorMessage("Card number must be exactly 16 characters long.");
+    if (cardNumber.replace(/\s/g, "").length !== 16) {
+      setErrorMessage(
+        "Card number must be exactly 16 characters long."
+      );
     } else {
       setErrorMessage("");
     }
@@ -66,8 +67,8 @@ const PaymentPage = () => {
 
   return (
     <div className="max-w-4xl mx-auto min-h-screen p-4">
-      <button 
-        type="button" 
+      <button
+        type="button"
         className="mb-4 font-bold text-xl"
         onClick={handleToBack}
       >
@@ -93,12 +94,17 @@ const PaymentPage = () => {
             placeholder="0000 0000 0000 0000"
             value={cardNumber}
             onChange={(e) => {
-              const value = e.target.value.replace(/\s/g, ''); // Видалити пробіли
+              const value = e.target.value.replace(
+                /\s/g,
+                ""
+              ); // Видалити пробіли
               if (value.length <= 16) {
-                setCardNumber(value.replace(/(.{4})/g, '$1 ').trim()); // Додати пробіли кожні 4 символи
+                setCardNumber(
+                  value.replace(/(.{4})/g, "$1 ").trim()
+                ); // Додати пробіли кожні 4 символи
               }
             }}
-            onBlur={handleCardNumberBlur} 
+            onBlur={handleCardNumberBlur}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
@@ -133,7 +139,20 @@ const PaymentPage = () => {
               id="expiryDate"
               placeholder="MM/YY"
               value={expiryDate}
-              onChange={(e) => setExpiryDate(e.target.value)}
+              onChange={(e) => {
+                let value = e.target.value.replace(
+                  /\D/g,
+                  ""
+                ); 
+                if (value.length <= 4) {
+                  value = value.replace(
+                    /(\d{2})(\d{0,2})/,
+                    "$1/$2"
+                  );
+                }
+                setExpiryDate(value);
+              }}
+              maxLength={5}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
             />
@@ -163,11 +182,12 @@ const PaymentPage = () => {
           Confirm Payment
         </button>
       </form>
-      <ThanksModal isOpen={isModalOpen} closeModal={closeModal} />
+      <ThanksModal
+        isOpen={isModalOpen}
+        closeModal={closeModal}
+      />
     </div>
   );
 };
 
 export default PaymentPage;
-
-
