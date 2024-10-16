@@ -1,4 +1,4 @@
-const CircleIcon = ({className="w-5 h-5 mr-2"}) => {
+const CircleIcon = ({className="w-3 h-3"}) => {
   return (
     <>
       <svg

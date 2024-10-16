@@ -47,8 +47,16 @@ button[type="submit"]:disabled {
 }
 
 input::placeholder {
-  @apply text-gray-600 italic;
-}
+    color: #4B5563;
+    font-style: italic; 
+  }
+
+  @media(max-width: 460px){
+    input::placeholder{
+      font-size: 12px;
+    }
+  }
+  
 
 .font-roboto {
   font-family: 'Roboto', sans-serif;
