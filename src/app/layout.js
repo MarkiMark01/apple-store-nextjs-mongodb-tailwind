@@ -6,6 +6,7 @@ import { AppProvider } from "../components/AppProvider";
 import Header from "../components/pages/header/Header";
 import Footer from "../components/pages/footer/Footer";
 import { CartProvider } from "../components/context/CartContext";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,15 +27,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-      >
+      <body>
         <AppProvider>
           <CartProvider>
             <Header />
-            <Toaster/>
-            <main className="flex-grow mx-auto">
-              {children}
-            </main>
+            <Toaster />
+            <ProtectedRoute>
+              <main className="flex-grow mx-auto">
+                {children}
+              </main>
+            </ProtectedRoute>
             <Footer />
           </CartProvider>
         </AppProvider>
