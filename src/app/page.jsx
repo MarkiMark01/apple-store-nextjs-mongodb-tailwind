@@ -17,14 +17,12 @@ export default function Home() {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedProduct, setSelectedProduct] =
-    useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [input, setInput] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState(
-    []
-  );
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 1500]);
+  const [isSliderVisible, setIsSliderVisible] = useState(false); // Додано
 
   const { addToCart } = useCart();
 
@@ -52,9 +50,7 @@ export default function Home() {
   useEffect(() => {
     if (input) {
       const results = products.filter((product) =>
-        product.title
-          .toLowerCase()
-          .includes(input.toLowerCase())
+        product.title.toLowerCase().includes(input.toLowerCase())
       );
       setFilteredProducts(results);
     } else {
@@ -64,18 +60,14 @@ export default function Home() {
 
   useEffect(() => {
     const results = products.filter(
-      (product) =>
-        product.price >= priceRange[0] &&
-        product.price <= priceRange[1]
+      (product) => product.price >= priceRange[0] && product.price <= priceRange[1]
     );
     setFilteredProducts(results);
   }, [priceRange, products]);
 
   const addItemsToCart = (product) => {
     if (!session) {
-      toast.error(
-        "You need to log in to add items to the cart."
-      );
+      toast.error("You need to log in to add items to the cart.");
       router.push("/login");
       return;
     }
@@ -91,16 +83,12 @@ export default function Home() {
       quantity: 1,
     });
 
-    toast.success(
-      `${product.title} added to cart successfully!`
-    );
+    toast.success(`${product.title} added to cart successfully!`);
   };
 
   const openModal = (product) => {
     if (!session) {
-      toast.error(
-        "You need to log in to view product details."
-      );
+      toast.error("You need to log in to view product details.");
       router.push("/login");
       return;
     }
@@ -115,6 +103,10 @@ export default function Home() {
 
   const handleInput = (e) => {
     setInput(e.target.value);
+  };
+
+  const togglePriceSlider = () => {
+    setIsSliderVisible((prev) => !prev);
   };
 
   if (isLoading) {
@@ -141,12 +133,13 @@ export default function Home() {
           value={input}
           onChange={handleInput}
           placeholder="What are you looking to buy today?"
-          className=" w-full  p-3 rounded-lg border 
+          className="w-full p-3 rounded-lg border 
         border-gray-300 shadow-md focus:outline-none focus:ring-2 
         focus:ring-gray-500 transition duration-300 ease-in-out transform 
         hover:scale-105"
         />
         <button
+          onClick={togglePriceSlider}
           className="bg-gray-900 text-yellow-200 rounded-md 
              w-40 sm:w-40 h-12 ml-4 flex items-center 
              justify-center sm:justify-between px-4 text-lg 
@@ -154,37 +147,39 @@ export default function Home() {
              hover:text-gray-900 shadow-lg transform 
              hover:scale-105"
         >
-
+          <CircleIcon className="w-3 h-3 hidden sm:inline" />
           Price
           <span className="hidden sm:inline">Slider</span>
         </button>
       </section>
-      <section className="mb-6">
-        <h3 className="text-lg font-semibold mb-2">
-          Price Range: ${priceRange[0]} - ${priceRange[1]}
-        </h3>
-        <Range
-          step={1}
-          min={0}
-          max={1500}
-          values={priceRange}
-          onChange={(values) => setPriceRange(values)}
-          renderTrack={({ props, children }) => (
-            <div
-              {...props}
-              className="h-2 w-full bg-gray-300 rounded-lg"
-            >
-              {children}
-            </div>
-          )}
-          renderThumb={({ props }) => (
-            <div
-              {...props}
-              className="h-4 w-4 bg-black rounded-full cursor-pointer"
-            />
-          )}
-        />
-      </section>
+      {/* {isSliderVisible && ( */}
+        <section className="mb-6">
+          <h3 className="text-lg font-semibold mb-2">
+            Price Range: ${priceRange[0]} - ${priceRange[1]}
+          </h3>
+          <Range
+            step={1}
+            min={0}
+            max={1500}
+            values={priceRange}
+            onChange={(values) => setPriceRange(values)}
+            renderTrack={({ props, children }) => (
+              <div
+                {...props}
+                className="h-2 w-full bg-gray-300 rounded-lg"
+              >
+                {children}
+              </div>
+            )}
+            renderThumb={({ props }) => (
+              <div
+                {...props}
+                className="h-4 w-4 bg-black rounded-full cursor-pointer"
+              />
+            )}
+          />
+        </section>
+      {/* )} */}
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {filteredProducts.map((product) => (
           <li
@@ -206,29 +201,31 @@ export default function Home() {
               </h2>
               <p className="text-lg">{product.colour}</p>
             </div>
-            <section className="flex items-center justify-between p-4 rounded-lg shadow-md mt-auto">
-              <p className="text-2xl font-bold">
-                ${product.price}
-              </p>
+            <section className="flex items-center justify-between mt-4">
+              <span className="text-xl font-semibold">${product.price}</span>
               <button
-                className="border px-4 py-2 font-semibold rounded-lg bg-black text-yellow-200 hover:bg-yellow-200 hover:text-black"
                 onClick={(e) => {
                   e.stopPropagation();
                   addItemsToCart(product);
                 }}
+                className="bg-yellow-200 text-gray-900 rounded-md px-3 py-2 transition duration-300 
+                hover:bg-yellow-300 hover:text-black"
               >
-                Add to cart
+                Add to Cart
               </button>
             </section>
           </li>
         ))}
       </ul>
-      <ProductModal
-        product={selectedProduct}
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        addToCart={addToCart}
-      />
+      {isModalOpen && (
+        <ProductModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          product={selectedProduct}
+          addToCart={addItemsToCart}
+        />
+      )}
     </section>
   );
 }
+
