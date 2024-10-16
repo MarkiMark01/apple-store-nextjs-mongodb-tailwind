@@ -95,17 +95,18 @@ const PaymentPage = () => {
             value={cardNumber}
             onChange={(e) => {
               const value = e.target.value.replace(
-                /\s/g,
+                /\D/g,
                 ""
-              ); // Видалити пробіли
+              );
               if (value.length <= 16) {
                 setCardNumber(
-                  value.replace(/(.{4})/g, "$1 ").trim()
-                ); // Додати пробіли кожні 4 символи
+                  value.replace(/(.{4})/g, "$1 ").trim() 
+                );
               }
             }}
             onBlur={handleCardNumberBlur}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            maxLength={19}
             required
           />
         </div>
@@ -143,7 +144,7 @@ const PaymentPage = () => {
                 let value = e.target.value.replace(
                   /\D/g,
                   ""
-                ); 
+                );
                 if (value.length <= 4) {
                   value = value.replace(
                     /(\d{2})(\d{0,2})/,
