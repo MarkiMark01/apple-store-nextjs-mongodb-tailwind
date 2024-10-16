@@ -2,22 +2,22 @@
 // import { useState, useEffect } from "react";
 // import Image from "next/image";
 // import { toast } from "react-hot-toast";
-
+// import { useSession } from "next-auth/react";
+// import { useRouter } from "next/navigation"; 
 // import OvalLoader from "../components/loader/OvalLoader";
 // import ProductModal from "../components/modal/ProductModal";
 // import { useCart } from "../components/context/CartContext";
 
 // export default function Home() {
+//   const { data: session } = useSession(); 
+//   const router = useRouter(); 
 //   const [products, setProducts] = useState([]);
 //   const [isLoading, setIsLoading] = useState(false);
 //   const [error, setError] = useState(null);
-//   const [selectedProduct, setSelectedProduct] =
-//     useState(null);
+//   const [selectedProduct, setSelectedProduct] = useState(null);
 //   const [isModalOpen, setIsModalOpen] = useState(false);
 //   const [input, setInput] = useState("");
-//   const [filteredProducts, setFilteredProducts] = useState(
-//     []
-//   );
+//   const [filteredProducts, setFilteredProducts] = useState([]);
 
 //   const { addToCart } = useCart();
 
@@ -45,9 +45,7 @@
 //   useEffect(() => {
 //     if (input) {
 //       const results = products.filter((product) =>
-//         product.title
-//           .toLowerCase()
-//           .includes(input.toLowerCase())
+//         product.title.toLowerCase().includes(input.toLowerCase())
 //       );
 //       setFilteredProducts(results);
 //     } else {
@@ -56,6 +54,12 @@
 //   }, [input, products]);
 
 //   const addItemsToCart = (product) => {
+//     if (!session) { 
+//       toast.error("You need to log in to add items to the cart.");
+//       router.push("/login"); 
+//       return; 
+//     }
+    
 //     addToCart({
 //       _id: product._id,
 //       image: product.image,
@@ -71,6 +75,11 @@
 //   };
 
 //   const openModal = (product) => {
+//     if (!session) { 
+//       toast.error("You need to log in to view product details.");
+//       router.push("/login");
+//       return; 
+//     }
 //     setSelectedProduct(product);
 //     setIsModalOpen(true);
 //   };
@@ -135,9 +144,7 @@
 //               <p className="text-lg">{product.colour}</p>
 //             </div>
 //             <section className="flex items-center justify-between p-4 rounded-lg shadow-md mt-auto">
-//               <p className="text-2xl font-bold">
-//                 ${product.price}
-//               </p>
+//               <p className="text-2xl font-bold">${product.price}</p>
 //               <button
 //                 className="border px-4 py-2 font-semibold rounded-lg bg-black text-yellow-200 hover:bg-yellow-200 hover:text-black"
 //                 onClick={(e) => {
@@ -168,15 +175,16 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
-import { useSession } from "next-auth/react"; // Import useSession
-import { useRouter } from "next/navigation"; // Import useRouter
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation"; 
 import OvalLoader from "../components/loader/OvalLoader";
 import ProductModal from "../components/modal/ProductModal";
 import { useCart } from "../components/context/CartContext";
+import { Range } from 'react-range'; 
 
 export default function Home() {
-  const { data: session } = useSession(); // Get the session
-  const router = useRouter(); // Initialize router
+  const { data: session } = useSession(); 
+  const router = useRouter(); 
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -184,6 +192,7 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [input, setInput] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [priceRange, setPriceRange] = useState([0, 1500]);
 
   const { addToCart } = useCart();
 
@@ -219,11 +228,18 @@ export default function Home() {
     }
   }, [input, products]);
 
+  useEffect(() => {
+    const results = products.filter(product => 
+      product.price >= priceRange[0] && product.price <= priceRange[1]
+    );
+    setFilteredProducts(results);
+  }, [priceRange, products]);
+
   const addItemsToCart = (product) => {
-    if (!session) { // Check if user is authenticated
+    if (!session) { 
       toast.error("You need to log in to add items to the cart.");
-      router.push("/login"); // Redirect to login page
-      return; // Stop further execution
+      router.push("/login"); 
+      return; 
     }
     
     addToCart({
@@ -241,10 +257,10 @@ export default function Home() {
   };
 
   const openModal = (product) => {
-    if (!session) { // Check if user is authenticated
+    if (!session) { 
       toast.error("You need to log in to view product details.");
-      router.push("/login"); // Redirect to login page
-      return; // Stop further execution
+      router.push("/login");
+      return; 
     }
     setSelectedProduct(product);
     setIsModalOpen(true);
@@ -277,17 +293,44 @@ export default function Home() {
 
   return (
     <section className="max-w-6xl mx-auto min-h-screen p-4">
-      <section className="flex items-center justify-around">
-        <input
-          type="text"
-          value={input}
-          onChange={handleInput}
-          placeholder="What are you looking to buy today?"
-          className="mb-4 max-w-full flex p-2 rounded-lg border 
-          border-gray-300 shadow-md focus:outline-none focus:ring-2 
-          focus:ring-gray-500"
-        />
-      </section>
+     <section 
+     className="flex flex-col md:flex-row items-center justify-between 
+     mb-4">
+      <input
+        type="text"
+        value={input}
+        onChange={handleInput}
+        placeholder="What are you looking to buy today?"
+        className="mb-4 md:mb-0 w-full md:w-3/5 p-3 rounded-lg border 
+        border-gray-300 shadow-md focus:outline-none focus:ring-2 
+        focus:ring-gray-500 transition duration-300 ease-in-out transform 
+        hover:scale-105"
+      />
+    </section>
+    <section className="mb-6">
+      <h3 className="text-lg font-semibold mb-2">Price Range: ${priceRange[0]} - ${priceRange[1]}</h3>
+      <Range
+        step={1}
+        min={0}
+        max={1500}
+        values={priceRange}
+        onChange={(values) => setPriceRange(values)}
+        renderTrack={({ props, children }) => (
+          <div
+            {...props}
+            className="h-2 w-full bg-gray-300 rounded-lg"
+          >
+            {children}
+          </div>
+        )}
+        renderThumb={({ props }) => (
+          <div
+            {...props}
+            className="h-4 w-4 bg-black rounded-full cursor-pointer"
+          />
+        )}
+      />
+    </section>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {filteredProducts.map((product) => (
           <li
