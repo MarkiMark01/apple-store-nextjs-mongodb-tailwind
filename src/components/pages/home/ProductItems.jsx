@@ -1,9 +1,9 @@
 
 
-// const ProductItems = () => {
-// return (
-//     <>
-//     </>
-// )
-// }
-// export default ProductItems;
+const ProductItems = () => {
+return (
+    <>
+    </>
+)
+}
+export default ProductItems;
