@@ -12,8 +12,15 @@ const ProductModal = ({ product, isOpen, onClose, addToCart }) => {
   const productPrice = product.price || 0; 
   const totalPrice = (productPrice * quantity).toFixed(0); 
 
-  const increaseQuantity = () => setQuantity((prevQuantity) => prevQuantity + 1);
-  const decreaseQuantity = () => setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
+  const increaseQuantity = () => {
+    if (quantity < 10) {
+      setQuantity((prevQuantity) => prevQuantity + 1);
+    }
+  };
+
+  const decreaseQuantity = () => {
+    setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
+  };
 
   const handleAddToCart = () => {
     const cartItem = {
@@ -26,7 +33,9 @@ const ProductModal = ({ product, isOpen, onClose, addToCart }) => {
       totalPrice: totalPrice,
       quantity: quantity,
     };
-    addToCart(cartItem);
+
+    console.log("Quantity:", quantity);  
+    addToCart(cartItem, quantity);
     onClose();
     router.push('/cart'); 
   };
@@ -81,3 +90,6 @@ const ProductModal = ({ product, isOpen, onClose, addToCart }) => {
 };
 
 export default ProductModal;
+
+
+

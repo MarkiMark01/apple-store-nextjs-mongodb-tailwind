@@ -7,7 +7,7 @@ import CartIcon from "../../components/icons/CartIcon";
 import { useCart } from "../../components/context/CartContext";
 
 const Cart = () => {
-  const { cart, removeFromCart} = useCart();
+  const { cart, removeFromCart } = useCart();
 
   const totalAmount = cart.reduce((acc, item) => {
     const totalItemPrice = Number(item.totalPrice) || 0;
@@ -78,8 +78,8 @@ const Cart = () => {
             </span>
           </div>
           <div
-            className="text-2xl font-bold bg-red-700 p-2 rounded-lg shadow-lg text-center mt-2 cursor-pointer transition-transform duration-300 hover:scale-105"
-            // onClick={clearCart}
+            className="text-2xl font-bold bg-red-700 p-2 rounded-lg shadow-lg text-center 
+            mt-2 cursor-pointer transition-transform duration-300 hover:scale-105"
           >
             <Link
               href={"/payment"}
