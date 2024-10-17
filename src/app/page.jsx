@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import OvalLoader from "../components/loader/OvalLoader";
 import ProductModal from "../components/modal/ProductModal";
 import { useCart } from "../components/context/CartContext";
-import FilterItems from "../components/pages/FilterItems";
+import FilterItems from "../components/pages/home/FilterItems";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -179,7 +179,7 @@ export default function Home() {
                   addItemsToCart(product);
                 }}
                 className="bg-yellow-200 text-gray-900 rounded-md px-3 py-2 transition duration-300 
-                hover:bg-yellow-300 hover:text-black"
+                hover:bg-yellow-300 hover:text-black font-semibold"
               >
                 Add to Cart
               </button>

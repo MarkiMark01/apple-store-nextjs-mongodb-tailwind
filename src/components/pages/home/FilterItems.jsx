@@ -1,6 +1,6 @@
 import { Range } from "react-range";
 
-import CircleIcon from "../icons/CircleIcon";
+import CircleIcon from "../../icons/CircleIcon";
 
 const FilterItems = ({
   handleInput,
