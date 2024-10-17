@@ -4,12 +4,11 @@ import Image from "next/image";
 import { toast } from "react-hot-toast";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Range } from "react-range";
 
-import CircleIcon from "../components/icons/CircleIcon";
 import OvalLoader from "../components/loader/OvalLoader";
 import ProductModal from "../components/modal/ProductModal";
 import { useCart } from "../components/context/CartContext";
+import FilterItems from "../components/pages/FilterItems";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -17,12 +16,16 @@ export default function Home() {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] =
+    useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [input, setInput] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(
+    []
+  );
   const [priceRange, setPriceRange] = useState([0, 1500]);
-  const [isSliderVisible, setIsSliderVisible] = useState(false); // Додано
+  const [isSliderVisible, setIsSliderVisible] =
+    useState(false);
 
   const { addToCart } = useCart();
 
@@ -50,7 +53,9 @@ export default function Home() {
   useEffect(() => {
     if (input) {
       const results = products.filter((product) =>
-        product.title.toLowerCase().includes(input.toLowerCase())
+        product.title
+          .toLowerCase()
+          .includes(input.toLowerCase())
       );
       setFilteredProducts(results);
     } else {
@@ -60,14 +65,18 @@ export default function Home() {
 
   useEffect(() => {
     const results = products.filter(
-      (product) => product.price >= priceRange[0] && product.price <= priceRange[1]
+      (product) =>
+        product.price >= priceRange[0] &&
+        product.price <= priceRange[1]
     );
     setFilteredProducts(results);
   }, [priceRange, products]);
 
   const addItemsToCart = (product) => {
     if (!session) {
-      toast.error("You need to log in to add items to the cart.");
+      toast.error(
+        "You need to log in to add items to the cart."
+      );
       router.push("/login");
       return;
     }
@@ -83,12 +92,16 @@ export default function Home() {
       quantity: 1,
     });
 
-    toast.success(`${product.title} added to cart successfully!`);
+    toast.success(
+      `${product.title} added to cart successfully!`
+    );
   };
 
   const openModal = (product) => {
     if (!session) {
-      toast.error("You need to log in to view product details.");
+      toast.error(
+        "You need to log in to view product details."
+      );
       router.push("/login");
       return;
     }
@@ -127,59 +140,14 @@ export default function Home() {
 
   return (
     <section className="max-w-6xl mx-auto min-h-screen p-4">
-      <section className="flex justify-between items-center my-2 mb-4">
-        <input
-          type="text"
-          value={input}
-          onChange={handleInput}
-          placeholder="What are you looking to buy today?"
-          className="w-full p-3 rounded-lg border 
-        border-gray-300 shadow-md focus:outline-none focus:ring-2 
-        focus:ring-gray-500 transition duration-300 ease-in-out transform 
-        hover:scale-105"
-        />
-        <button
-          onClick={togglePriceSlider}
-          className="bg-gray-900 text-yellow-200 rounded-md 
-             w-40 sm:w-40 h-12 ml-4 flex items-center 
-             justify-center sm:justify-between px-4 text-lg 
-             transition duration-300 hover:bg-yellow-200 
-             hover:text-gray-900 shadow-lg transform 
-             hover:scale-105"
-        >
-          <CircleIcon className="w-3 h-3 hidden sm:inline" />
-          Price
-          <span className="hidden sm:inline">Slider</span>
-        </button>
-      </section>
-      {isSliderVisible && (
-        <section className="mb-6">
-          <h3 className="text-lg font-semibold mb-2">
-            Price Range: ${priceRange[0]} - ${priceRange[1]}
-          </h3>
-          <Range
-            step={1}
-            min={0}
-            max={1500}
-            values={priceRange}
-            onChange={(values) => setPriceRange(values)}
-            renderTrack={({ props, children }) => (
-              <div
-                {...props}
-                className="h-2 w-full bg-gray-300 rounded-lg"
-              >
-                {children}
-              </div>
-            )}
-            renderThumb={({ props }) => (
-              <div
-                {...props}
-                className="h-4 w-4 bg-black rounded-full cursor-pointer"
-              />
-            )}
-          />
-        </section>
-      )}
+      <FilterItems 
+      handleInput={handleInput}
+      togglePriceSlider={togglePriceSlider}
+      isSliderVisible={isSliderVisible}
+      input={input}
+      priceRange={priceRange}
+      setPriceRange={setPriceRange}
+      />
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {filteredProducts.map((product) => (
           <li
@@ -202,7 +170,9 @@ export default function Home() {
               <p className="text-lg">{product.colour}</p>
             </div>
             <section className="flex items-center justify-between mt-4">
-              <span className="text-xl font-semibold">${product.price}</span>
+              <span className="text-xl font-semibold">
+                ${product.price}
+              </span>
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -228,4 +198,3 @@ export default function Home() {
     </section>
   );
 }
-
