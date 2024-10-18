@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Product } from '../../models/Product'; 
+import { Product } from '../../../models/Product'; 
 
 export async function GET(req) {
   try {

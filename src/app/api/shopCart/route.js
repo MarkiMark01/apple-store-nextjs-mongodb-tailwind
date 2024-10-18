@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { CartItems } from '../../models/CartItems'; 
+import { CartItems } from '../../../models/CartItems'; 
 
 export async function GET(req) {
   try {

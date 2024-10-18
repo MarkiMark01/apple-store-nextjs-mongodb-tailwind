@@ -29,10 +29,10 @@ const Login = () => {
       password,
     });
 
-    if (res?.error) {
-      setError(res.error);
-    } else {
+    if (res.ok) {
       router.push("/");
+    } else {
+      setError(res.error);
     }
     setLoading(false);
   };

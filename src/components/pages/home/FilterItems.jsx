@@ -26,7 +26,7 @@ const FilterItems = ({
         <button
           onClick={togglePriceSlider}
           className="bg-gray-900 text-yellow-200 rounded-md 
-         w-40 sm:w-40 h-12 ml-4 flex items-center 
+         w-40 sm:w-40 h-10 ml-4 flex items-center 
          justify-center sm:justify-between px-4 text-lg 
          transition duration-300 hover:bg-yellow-200 
          hover:text-gray-900 shadow-lg transform 

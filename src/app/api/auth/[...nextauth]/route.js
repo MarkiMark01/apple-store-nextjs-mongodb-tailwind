@@ -3,7 +3,7 @@ import NextAuth from "next-auth";
 import bcrypt from "bcrypt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import {User} from "../../../models/User"; 
+import {User} from "../../../../models/User"; 
 
 const handler = NextAuth({
   secret: process.env.SECRET_KEY,

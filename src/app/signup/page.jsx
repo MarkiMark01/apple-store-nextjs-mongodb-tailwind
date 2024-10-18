@@ -3,8 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
+import { useRouter } from "next/navigation"; 
 
 const SignUp = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [creatingUser, setCreatingUser] = useState(false);
@@ -15,24 +17,23 @@ const SignUp = () => {
     e.preventDefault();
     setCreatingUser(true);
     setError("");
-
+  
     if (password.length < 6) {
       setError("Password must be at least 6 characters long.");
       setCreatingUser(false);
       return;
     }
-
+  
     try {
       const res = await fetch("/api/register", {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: { "Content-Type": "application/json" },
       });
-
+  
       if (res.ok) {
         setUserCreated(true);
-        setEmail("");
-        setPassword("");
+        await signIn("credentials", { email, password, callbackUrl: "/" });
       } else {
         const data = await res.json();
         setError(data.message || "Error creating user");
@@ -43,6 +44,7 @@ const SignUp = () => {
       setCreatingUser(false);
     }
   };
+  
 
   const handleGoogleLogin = async () => {
     setCreatingUser(true);
@@ -130,3 +132,4 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
