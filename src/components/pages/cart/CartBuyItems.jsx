@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const CartBuyItems = () => {
+const CartBuyItems = ({totalAmount}) => {
 return (
     <div className="mt-4 text-right">
           <div className="text-xl font-bold text-yellow-500 bg-gray-700 p-2 rounded-lg shadow-lg text-center">
