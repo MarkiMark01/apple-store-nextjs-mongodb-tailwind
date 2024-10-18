@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import PaymentCardNumber from "../../components/pages/payment/PaymentCardNumber";
+import PaymentCardHolder from "../../components/pages/payment/PaymentCardHolder";
 import ThanksModal from "../../components/modal/ThanksModal";
 import { useCart } from "../../components/context/CartContext";
 
@@ -37,7 +38,6 @@ const PaymentPage = () => {
       router.push("/");
     }, 3000);
   };
-  
 
   const handleToBack = () => {
     router.push("/cart");
@@ -70,7 +70,6 @@ const PaymentPage = () => {
       setErrorMessage("");
     }
   }, [isModalOpen]);
-  
 
   return (
     <div className="max-w-4xl mx-auto min-h-screen p-4">
@@ -94,23 +93,10 @@ const PaymentPage = () => {
           handleCardNumberBlur={handleCardNumberBlur}
         />
 
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="cardHolder"
-          >
-            Card Holder
-          </label>
-          <input
-            type="text"
-            id="cardHolder"
-            placeholder="Name Surname"
-            value={cardHolder}
-            onChange={(e) => setCardHolder(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
+        <PaymentCardHolder
+          cardHolder={cardHolder}
+          setCardHolder={setCardHolder}
+        />
         <div className="mb-4 flex justify-between">
           <div className="w-1/2 pr-2">
             <label
