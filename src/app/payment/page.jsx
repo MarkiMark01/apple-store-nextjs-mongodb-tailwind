@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 
 import PaymentCardNumber from "../../components/pages/payment/PaymentCardNumber";
 import PaymentCardHolder from "../../components/pages/payment/PaymentCardHolder";
+import PaymentExpiryDate from "../../components/pages/payment/PaymentEmpiryDate";
 import ThanksModal from "../../components/modal/ThanksModal";
 import { useCart } from "../../components/context/CartContext";
 
@@ -18,17 +19,27 @@ const PaymentPage = () => {
   const { clearCart } = useCart();
   const router = useRouter();
 
+  const validatePaymentDetails = () => {
+    if (cardNumber.replace(/\s/g, "").length !== 16) {
+      return "Card number must be exactly 16 characters long.";
+    }
+    if (!cardHolder) {
+      return "Card holder name is required.";
+    }
+    if (!expiryDate) {
+      return "Expiry date is required.";
+    }
+    if (!cvc) {
+      return "CVC is required.";
+    }
+    return "";
+  };
+
   const handlePayment = (e) => {
     e.preventDefault();
-    if (
-      cardNumber.replace(/\s/g, "").length !== 16 ||
-      !cardHolder ||
-      !expiryDate ||
-      !cvc
-    ) {
-      setErrorMessage(
-        "Please fill in all fields and ensure the card number is exactly 16 characters long."
-      );
+    const error = validatePaymentDetails();
+    if (error) {
+      setErrorMessage(error);
       return;
     }
     setErrorMessage("");
@@ -41,16 +52,6 @@ const PaymentPage = () => {
 
   const handleToBack = () => {
     router.push("/cart");
-  };
-
-  const handleCardNumberBlur = () => {
-    if (cardNumber.replace(/\s/g, "").length !== 16) {
-      setErrorMessage(
-        "Card number must be exactly 16 characters long."
-      );
-    } else {
-      setErrorMessage("");
-    }
   };
 
   const openModal = () => {
@@ -84,69 +85,25 @@ const PaymentPage = () => {
         onSubmit={handlePayment}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
       >
-        {errorMessage && (
-          <p className="text-red-500">{errorMessage}</p>
-        )}
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+        
         <PaymentCardNumber
           cardNumber={cardNumber}
           setCardNumber={setCardNumber}
-          handleCardNumberBlur={handleCardNumberBlur}
         />
 
         <PaymentCardHolder
           cardHolder={cardHolder}
           setCardHolder={setCardHolder}
         />
-        <div className="mb-4 flex justify-between">
-          <div className="w-1/2 pr-2">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="expiryDate"
-            >
-              Expiry Date
-            </label>
-            <input
-              type="text"
-              id="expiryDate"
-              placeholder="MM/YY"
-              value={expiryDate}
-              onChange={(e) => {
-                let value = e.target.value.replace(
-                  /\D/g,
-                  ""
-                );
-                if (value.length <= 4) {
-                  value = value.replace(
-                    /(\d{2})(\d{0,2})/,
-                    "$1/$2"
-                  );
-                }
-                setExpiryDate(value);
-              }}
-              maxLength={5}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
-            />
-          </div>
-          <div className="w-1/2 pl-2">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="cvc"
-            >
-              CVC
-            </label>
-            <input
-              type="text"
-              id="cvc"
-              placeholder="CVC"
-              value={cvc}
-              maxLength={3}
-              onChange={(e) => setCvc(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
-            />
-          </div>
-        </div>
+
+        <PaymentExpiryDate
+          cvc={cvc}
+          setCvc={setCvc}
+          expiryDate={expiryDate}
+          setExpiryDate={setExpiryDate}
+        />
+
         <button
           type="submit"
           className="bg-black hover:bg-blue-600 block text-center text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -154,12 +111,10 @@ const PaymentPage = () => {
           Confirm Payment
         </button>
       </form>
-      <ThanksModal
-        isOpen={isModalOpen}
-        closeModal={closeModal}
-      />
+      <ThanksModal isOpen={isModalOpen} closeModal={closeModal} />
     </div>
   );
 };
 
 export default PaymentPage;
+
