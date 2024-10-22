@@ -140,7 +140,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import useAuth from "@/hooks/useAuth"; // Імпортуємо наш хук
+import useAuth from "../../components/hooks/useAuth";
 
 const SignUp = () => {
   const {
@@ -152,7 +152,7 @@ const SignUp = () => {
     setPassword,
     handleFormSubmit,
     handleGoogleLogin,
-  } = useAuth(false); // false, бо це компонент реєстрації
+  } = useAuth(false); 
 
   return (
     <section className="min-h-screen w-full">
