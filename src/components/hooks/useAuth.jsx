@@ -65,6 +65,17 @@ const useAuth = (isLogin = true) => {
       setLoading(false);
     }
   };
+  const handleGitHubLogin = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      await signIn("github", { callbackUrl: "/" });
+    } catch (error) {
+      setError("GitHub login failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return {
     email,
@@ -75,6 +86,7 @@ const useAuth = (isLogin = true) => {
     setPassword,
     handleFormSubmit,
     handleGoogleLogin,
+    handleGitHubLogin
   };
 };
 
