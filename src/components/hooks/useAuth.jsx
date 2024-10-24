@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -42,7 +41,11 @@ const useAuth = (isLogin = true) => {
         });
 
         if (res.ok) {
-          await signIn("credentials", { email, password, callbackUrl: "/" });
+          await signIn("credentials", {
+            email,
+            password,
+            callbackUrl: "/",
+          });
         } else {
           const data = await res.json();
           setError(data.message || "Error creating user");
@@ -69,9 +72,13 @@ const useAuth = (isLogin = true) => {
     setLoading(true);
     setError("");
     try {
-      await signIn("github", { callbackUrl: "/" });
+      const result = await signIn("github", {
+        callbackUrl: "/",
+      });
+      console.log("GitHub login result:", result);
     } catch (error) {
       setError("GitHub login failed.");
+      console.error("GitHub login error:", error);
     } finally {
       setLoading(false);
     }
@@ -86,7 +93,7 @@ const useAuth = (isLogin = true) => {
     setPassword,
     handleFormSubmit,
     handleGoogleLogin,
-    handleGitHubLogin
+    handleGitHubLogin,
   };
 };
 
