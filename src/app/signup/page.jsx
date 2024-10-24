@@ -13,6 +13,7 @@ const SignUp = () => {
     setPassword,
     handleFormSubmit,
     handleGoogleLogin,
+    handleGitHubLogin,
   } = useAuth(false); 
 
   return (
@@ -59,7 +60,20 @@ const SignUp = () => {
           <Image src="/google.png" alt="Google Icon" width={24} height={24} className="h-auto w-auto" />
           Sign In with Google
         </button>
-
+        <button
+          type="button"
+          onClick={handleGitHubLogin}
+          className="flex gap-4 justify-center items-center bg-white text-black w-full rounded-3xl p-2 text-xl border border-gray-300 hover:bg-gray-50"
+        >
+          <Image
+            src="/github.png"
+            alt="GitHub Icon"
+            width={24}
+            height={24}
+            className="h-auto w-auto"
+          />
+          Sign In with GitHub
+        </button>
         <div className="text-center my-4 text-gray-500 border-t pt-4">
           Existing account?{" "}
           <Link className="underline text-orange-500" href="/login">
