@@ -1,5 +1,5 @@
 "use client";
-
+import { useEffect } from "react";
 import { useCart } from "../../components/context/CartContext";
 import CartGetItems from "../../components/pages/cart/CartGetItems";
 import CartBuyItems from "../../components/pages/cart/CartBuyItems";
@@ -7,6 +7,10 @@ import CartEmptyItems from "../../components/pages/cart/CartEmptyItems";
 
 const Cart = () => {
   const { cart, removeFromCart } = useCart();
+
+  useEffect(() => {
+    document.title = "AppleStore | Cart";
+  }, []);
 
   const totalAmount = cart.reduce((acc, item) => {
     const totalItemPrice = Number(item.totalPrice) || 0;
