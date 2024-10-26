@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import useAuth from "../../components/hooks/useAuth";
@@ -15,6 +16,10 @@ const Login = () => {
     handleGoogleLogin,
     handleGitHubLogin,
   } = useAuth(true);
+
+  useEffect(() => {
+    document.title = "AppleStore | Log In";
+  }, []);
 
   return (
     <section className="min-h-screen w-full">
