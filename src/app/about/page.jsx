@@ -1,4 +1,12 @@
+'use client';
+import { useEffect } from "react";
+
 const About = () => {
+
+    useEffect(() => {
+        document.title = "AppleStore | About";
+      }, []);
+
     return (
         <section className="max-w-6xl mx-auto min-h-screen p-4 font-roboto">
             <h1 className="text-3xl font-bold mb-6">About AppleStore 🍏</h1>
