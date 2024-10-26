@@ -63,6 +63,10 @@ export default function Home() {
     setFilteredProducts(filtered);
   }, [input, priceRange, products]);
 
+  useEffect(() => {
+    document.title = "AppleStore | Home";
+  }, []);
+
   const addItemsToCart = (product, quantity = 1) => {
     if (!session) {
       toast.error("You need to log in to add items to the cart.");
@@ -122,6 +126,8 @@ export default function Home() {
       </div>
     );
   }
+
+
 
   return (
     <section className="max-w-6xl mx-auto min-h-screen p-4">
