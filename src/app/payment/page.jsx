@@ -65,6 +65,10 @@ const PaymentPage = () => {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    document.title = "AppleStore | Payment";
+  }, []);
+
   return (
     <div className="max-w-4xl mx-auto min-h-screen p-4">
       <button
