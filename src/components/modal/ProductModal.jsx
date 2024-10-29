@@ -1,16 +1,21 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
 
-const ProductModal = ({ product, isOpen, onClose, addToCart }) => {
+const ProductModal = ({
+  product,
+  isOpen,
+  onClose,
+  addToCart,
+}) => {
   const [quantity, setQuantity] = useState(1);
-  const router = useRouter(); 
+  const router = useRouter();
 
   if (!isOpen || !product) return null;
 
-  const productPrice = product.price || 0; 
-  const totalPrice = (productPrice * quantity).toFixed(0); 
+  const productPrice = product.price || 0;
+  const totalPrice = (productPrice * quantity).toFixed(0);
 
   const increaseQuantity = () => {
     if (quantity < 10) {
@@ -19,7 +24,9 @@ const ProductModal = ({ product, isOpen, onClose, addToCart }) => {
   };
 
   const decreaseQuantity = () => {
-    setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
+    setQuantity((prevQuantity) =>
+      prevQuantity > 1 ? prevQuantity - 1 : 1
+    );
   };
 
   const handleAddToCart = () => {
@@ -34,15 +41,18 @@ const ProductModal = ({ product, isOpen, onClose, addToCart }) => {
       quantity: quantity,
     };
 
-    console.log("Quantity:", quantity);  
+    console.log("Quantity:", quantity);
     addToCart(cartItem, quantity);
     onClose();
-    router.push('/cart'); 
+    router.push("/cart");
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
-      <div className="bg-white rounded-lg p-6 max-w-lg mx-auto relative">
+      <div
+        className="bg-white rounded-lg p-6 max-w-lg mx-auto relative
+      overflow-y-auto "
+      >
         <button
           onClick={onClose}
           className="absolute top-2 right-2 text-red-600 text-2xl font-bold"
@@ -52,13 +62,18 @@ const ProductModal = ({ product, isOpen, onClose, addToCart }) => {
         <Image
           src={product.image}
           alt={product.title}
-          width={400}
+          width={300}
           height={300}
-          className="object-cover rounded-md mb-4"
+          className="object-cover rounded-md mb-4 mx-auto"
         />
-        <h2 className="text-2xl font-bold">{product.title}</h2>
+
+        <h2 className="text-2xl font-bold">
+          {product.title}
+        </h2>
         <p className="text-lg">{product.description}</p>
-        <p className="text-lg font-bold mt-4">Price: ${productPrice}</p>
+        <p className="text-lg font-bold mt-4">
+          Price: ${productPrice}
+        </p>
 
         <div className="flex flex-col lg:flex-row items-center justify-between mt-4">
           <div className="flex items-center">
@@ -75,7 +90,9 @@ const ProductModal = ({ product, isOpen, onClose, addToCart }) => {
             >
               +
             </button>
-            <p className="text-2xl font-bold ml-6">${totalPrice}</p>
+            <p className="text-2xl font-bold ml-6">
+              ${totalPrice}
+            </p>
           </div>
           <button
             onClick={handleAddToCart}
@@ -90,6 +107,3 @@ const ProductModal = ({ product, isOpen, onClose, addToCart }) => {
 };
 
 export default ProductModal;
-
-
-
