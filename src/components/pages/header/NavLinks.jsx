@@ -26,7 +26,7 @@ const NavLinks = ({ currentPath, onClose }) => {
       ),
     },
     { href: "/about", label: <AboutIcon /> },
-    // { href: "/profile", label: <ProfileIcon /> },
+    { href: "/profile", label: <ProfileIcon /> },
   ];
 
   return (
