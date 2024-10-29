@@ -4,7 +4,6 @@ import { useCart } from "../../context/CartContext";
 import HomeIcon from "../../icons/HomeIcon";
 import CartIcon from "../../icons/CartIcon";
 import AboutIcon from "../../icons/AboutIcon";
-import ProfileIcon from "../../icons/ProfileIcon";
 
 const NavLinks = ({ currentPath, onClose }) => {
   const { cart } = useCart();
@@ -26,7 +25,6 @@ const NavLinks = ({ currentPath, onClose }) => {
       ),
     },
     { href: "/about", label: <AboutIcon /> },
-    { href: "/profile", label: <ProfileIcon /> },
   ];
 
   return (
