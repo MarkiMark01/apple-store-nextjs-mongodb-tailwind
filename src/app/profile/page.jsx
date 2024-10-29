@@ -56,7 +56,7 @@ const ProfilePage = () => {
 
   return (
     <section className="min-h-screen mx-auto p-4 max-w-xl">
-      {/* <div className="flex gap-4 items-center justify-center">
+      <div className="flex gap-4 items-center justify-center">
         <form
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 grow"
           onSubmit={handleProfileInfo}
@@ -83,7 +83,7 @@ const ProfilePage = () => {
             Save
           </button>
         </form>
-      </div> */}
+      </div>
     </section>
   );
 };
