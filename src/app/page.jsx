@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { toast } from "react-hot-toast";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -20,7 +20,6 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [input, setInput] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 1500]);
   const [isSliderVisible, setIsSliderVisible] = useState(false);
 
@@ -36,7 +35,6 @@ export default function Home() {
         }
         const data = await res.json();
         setProducts(data);
-        setFilteredProducts(data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -47,21 +45,16 @@ export default function Home() {
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    let filtered = products;
+  const filteredProducts = useMemo(() => 
+    products.filter((product) => {
+      const matchesInput = !input || product.title.toLowerCase().includes(input.toLowerCase());
+      const withinPriceRange =
+        product.price >= priceRange[0] && product.price <= priceRange[1];
 
-    if (input) {
-      filtered = filtered.filter((product) =>
-        product.title.toLowerCase().includes(input.toLowerCase())
-      );
-    }
-
-    filtered = filtered.filter(
-      (product) => product.price >= priceRange[0] && product.price <= priceRange[1]
-    );
-
-    setFilteredProducts(filtered);
-  }, [input, priceRange, products]);
+      return matchesInput && withinPriceRange;
+    }), 
+    [input, priceRange, products]
+  );
 
   useEffect(() => {
     document.title = "AppleStore | Home";
@@ -127,8 +120,6 @@ export default function Home() {
     );
   }
 
-
-
   return (
     <section className="max-w-6xl mx-auto min-h-screen p-4">
       <FilterItems
@@ -155,3 +146,4 @@ export default function Home() {
     </section>
   );
 }
+

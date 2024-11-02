@@ -27,7 +27,7 @@ const About = () => {
                 <strong>Email:</strong> support@applestore.com
             </p>
             <p className="text-lg mb-2">
-                <strong>Phone:</strong> +38 099 55 88 33
+                <strong>Phone:</strong> +38 099 55 888 33
             </p>
             <p className="text-lg">
                 <strong>Address:</strong> Lviv, Rynok Square, 1
